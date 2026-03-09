@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog — AdaAscend</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1520;
+      --cream: #faf7f2;
+      --warm: #f0e9dc;
+      --border: rgba(26,21,32,0.1);
+      --gold: #b8955a;
+      --gold-dim: rgba(184,149,90,0.12);
+      --rose: #b85c4a;
+      --muted: #7a6e6a;
+      --white: #fdfaf6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.55;
+    }
+
+    /* NAV */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 4rem;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,247,242,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(184,149,90,0.15);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 700;
+      letter-spacing: 0.02em; color: var(--ink);
+      display: flex; align-items: center; gap: 0.4rem;
+      text-decoration: none;
+    }
+
+    .logo-ada { color: var(--rose); font-style: italic; }
+    .logo-for { display: none; }
+    .logo-her { color: var(--gold); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+
+    nav a {
+      font-size: 0.78rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.07em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--rose); }
+    nav a.active { color: var(--ink); }
+
+    .nav-cta {
+      padding: 0.55rem 1.25rem;
+      background: var(--ink); color: var(--cream) !important;
+      border-radius: 4px; transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--rose) !important; }
+
+    /* BLOG HERO */
+    .blog-hero {
+      padding: 8rem 4rem 4rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--warm);
+    }
+
+    .blog-eyebrow {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+
+    .blog-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--rose); }
+
+    .blog-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.08; margin-bottom: 1rem;
+    }
+
+    .blog-hero h1 em { font-style: italic; color: var(--rose); }
+
+    .blog-hero p {
+      font-size: 1rem; color: var(--muted);
+      line-height: 1.75; max-width: 540px; margin-bottom: 2rem;
+    }
+
+    /* FILTERS */
+    .filters {
+      display: flex; align-items: center; gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.15s;
+      border: 1.5px solid var(--border);
+      background: transparent; color: var(--muted);
+      font-family: inherit;
+    }
+
+    .filter-btn:hover { border-color: var(--ink); color: var(--ink); }
+    .filter-btn.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+    /* FEATURED POST */
+    .featured-post {
+      padding: 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .featured-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .featured-img {
+      height: 360px; border-radius: 10px;
+      background: linear-gradient(135deg, #f5e8e4, #ede0d8);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+
+    .featured-img-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 8rem; font-weight: 700;
+      color: rgba(184,92,74,0.15); letter-spacing: -0.03em;
+      user-select: none;
+    }
+
+    .featured-label {
+      position: absolute; top: 1.25rem; left: 1.25rem;
+      background: var(--rose); color: var(--white);
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.3rem 0.75rem; border-radius: 100px;
+    }
+
+    .featured-content .post-tag {
+      display: inline-block; margin-bottom: 1rem;
+      font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--rose);
+    }
+
+    .featured-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 700; line-height: 1.2;
+      margin-bottom: 1rem; letter-spacing: -0.01em;
+    }
+
+    .featured-content p {
+      font-size: 0.92rem; line-height: 1.8;
+      color: var(--muted); margin-bottom: 1.5rem;
+    }
+
+    .post-meta {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.75rem; color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); }
+
+    .read-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--ink); color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      border: none; border-radius: 4px; cursor: pointer;
+      transition: background 0.2s; text-decoration: none;
+    }
+
+    .read-btn:hover { background: var(--rose); }
+
+    /* POST GRID */
+    .posts-section { padding: 4rem; }
+
+    .posts-section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+
+    .posts-section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .posts-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-bottom: 3rem;
+    }
+
+    .post-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+      cursor: pointer; display: flex; flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none; color: inherit;
+    }
+
+    .post-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,21,32,0.08); }
+
+    .post-card-img {
+      height: 140px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+
+    .post-card-img-txt {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem; font-weight: 700;
+      opacity: 0.18; letter-spacing: -0.02em;
+      user-select: none; color: var(--ink);
+    }
+
+    .post-card-img.c1 { background: linear-gradient(135deg, #f0eadf, #e8dfc8); }
+    .post-card-img.c2 { background: linear-gradient(135deg, #f5e8e4, #ede0d8); }
+    .post-card-img.c3 { background: linear-gradient(135deg, #e8edf5, #d8e0ed); }
+    .post-card-img.c4 { background: linear-gradient(135deg, #edf5e8, #d8edd0); }
+    .post-card-img.c5 { background: linear-gradient(135deg, #f5f0e8, #ede5d0); }
+    .post-card-img.c6 { background: linear-gradient(135deg, #2a2535, #1a1520); }
+    .post-card-img.c6 .post-card-img-txt { color: var(--gold); opacity: 0.25; }
+
+    .post-tag-pill {
+      position: absolute; top: 0.75rem; left: 0.75rem;
+      font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.22rem 0.6rem; border-radius: 100px;
+      color: var(--ink); background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(4px);
+    }
+
+    .post-card-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+
+    .post-card-meta {
+      font-size: 0.67rem; color: var(--muted);
+      letter-spacing: 0.05em; text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .post-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 700;
+      line-height: 1.3; margin-bottom: 0.5rem; color: var(--ink);
+    }
+
+    .post-card p {
+      font-size: 0.8rem; line-height: 1.7;
+      color: var(--muted); flex: 1;
+    }
+
+    .post-card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1rem; padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .post-author {
+      display: flex; align-items: center; gap: 0.45rem;
+      font-size: 0.7rem; color: var(--muted);
+    }
+
+    .post-author-dot {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--rose));
+      flex-shrink: 0;
+    }
+
+    .post-read { font-size: 0.68rem; font-weight: 500; color: var(--rose); letter-spacing: 0.04em; }
+
+    /* NEWSLETTER */
+    .newsletter {
+      margin: 0 4rem 4rem;
+      padding: 3rem;
+      background: var(--ink); color: var(--cream);
+      border-radius: 12px; position: relative; overflow: hidden;
+    }
+
+    .newsletter::before {
+      content: 'WRITE';
+      position: absolute; right: -2rem; top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10rem; font-weight: 700;
+      color: rgba(184,149,90,0.05); pointer-events: none;
+      white-space: nowrap; letter-spacing: -0.03em;
+    }
+
+    .newsletter-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: center;
+    }
+
+    .newsletter h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 700;
+      letter-spacing: -0.01em; margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .newsletter h3 em { font-style: italic; color: var(--rose); }
+
+    .newsletter p {
+      font-size: 0.88rem; line-height: 1.75;
+      color: rgba(250,247,242,0.55);
+    }
+
+    .newsletter-form { display: flex; gap: 0; }
+
+    .newsletter-form input {
+      flex: 1; padding: 0.9rem 1.1rem;
+      font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(184,149,90,0.25);
+      border-right: none; border-radius: 4px 0 0 4px;
+      outline: none; color: var(--cream);
+      transition: border-color 0.2s;
+    }
+
+    .newsletter-form input::placeholder { color: rgba(250,247,242,0.3); }
+    .newsletter-form input:focus { border-color: var(--gold); }
+
+    .newsletter-form button {
+      padding: 0.9rem 1.4rem;
+      background: var(--rose); color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      border: none; border-radius: 0 4px 4px 0;
+      cursor: pointer; transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .newsletter-form button:hover { background: #9a4a3a; }
+
+    .newsletter-note {
+      font-size: 0.72rem; color: rgba(250,247,242,0.3);
+      margin-top: 0.75rem;
+    }
+
+    .newsletter-success {
+      display: none; padding: 0.9rem 1.1rem;
+      background: rgba(58,110,74,0.2);
+      border: 1px solid rgba(58,110,74,0.3);
+      border-radius: 4px; color: #7dd87d;
+      font-size: 0.85rem;
+    }
+
+    /* WRITE FOR US */
+    .write-for-us {
+      margin: 0 4rem 4rem;
+      padding: 2rem 2.5rem;
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+    }
+
+    .write-content h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 700; margin-bottom: 0.4rem;
+    }
+
+    .write-content p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+    .write-btn {
+      padding: 0.7rem 1.5rem;
+      background: transparent;
+      border: 1.5px solid var(--ink);
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--ink); cursor: pointer;
+      transition: all 0.15s; white-space: nowrap;
+    }
+
+    .write-btn:hover { background: var(--ink); color: var(--cream); }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem; color: var(--muted);
+      background: var(--warm);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { display: none; }
+      .blog-hero, .featured-post, .posts-section { padding: 4rem 1.5rem; }
+      .featured-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .posts-grid { grid-template-columns: 1fr; }
+      .newsletter, .write-for-us { margin: 0 1.5rem 2rem; padding: 2rem 1.5rem; }
+      .newsletter-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+      .write-for-us { flex-direction: column; align-items: flex-start; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo" href="adaascend-landing.html">
+      <span class="logo-ada">Ada</span><span class="logo-her">Ascend</span>
+    </a>
+    <div class="nav-links">
+      <a href="adaascend-landing.html#offerings">What We Offer</a>
+      <a href="adaascend-landing.html#founder">Our Story</a>
+      <a href="adaascend-landing.html#pricing">Pricing</a>
+      <a href="#" class="active">Blog</a>
+      <a href="adaascend-contact.html">Work With Us</a>
+      <a href="adaascend-landing.html#waitlist" class="nav-cta">Join Waitlist</a>
+    </div>
+  </nav>
+
+  <!-- BLOG HERO -->
+  <div class="blog-hero">
+    <div class="blog-eyebrow">AdaAscend Blog</div>
+    <h1>Real talk for women<br/>building <em>real careers</em> in STEM.</h1>
+    <p>Career advice, founder stories, interview breakdowns, and everything they don't teach you in your CS degree — written by women who've been there.</p>
+    <div class="filters">
+      <button class="filter-btn active" onclick="filter(this, 'all')">All Posts</button>
+      <button class="filter-btn" onclick="filter(this, 'resume')">Resume</button>
+      <button class="filter-btn" onclick="filter(this, 'interviews')">Interviews</button>
+      <button class="filter-btn" onclick="filter(this, 'negotiation')">Negotiation</button>
+      <button class="filter-btn" onclick="filter(this, 'stories')">Stories</button>
+      <button class="filter-btn" onclick="filter(this, 'stem')">Women in STEM</button>
+    </div>
+  </div>
+
+  <!-- FEATURED POST -->
+  <section class="featured-post">
+    <div class="featured-inner">
+      <div class="featured-img">
+        <div class="featured-img-text">ATS</div>
+        <span class="featured-label">Featured</span>
+      </div>
+      <div class="featured-content">
+        <span class="post-tag">Resume · 6 min read</span>
+        <h2>Why 75% of Resumes Never Reach a Human — And How to Make Sure Yours Does</h2>
+        <div class="post-meta">
+          <span>AdaAscend Team</span>
+          <div class="post-meta-dot"></div>
+          <span>March 3, 2026</span>
+          <div class="post-meta-dot"></div>
+          <span>6 min read</span>
+        </div>
+        <p>Applicant Tracking Systems are the invisible gatekeepers of every major company's hiring pipeline. Before a human ever reads your resume, an algorithm decides whether you're worth a second look. Here's how they work, what they're actually scanning for — and how AdaAscend's AI gives you an unfair advantage.</p>
+        <a href="#" class="read-btn">Read Article →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALL POSTS -->
+  <section class="posts-section">
+    <div class="posts-section-header">
+      <div class="posts-section-title">Latest Posts</div>
+    </div>
+    <div class="posts-grid">
+
+      <a class="post-card" href="#" data-category="negotiation">
+        <div class="post-card-img c2">
+          <div class="post-card-img-txt">$$$</div>
+          <span class="post-tag-pill">Negotiation</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta">4 min read · Mar 1, 2026</div>
+          <h3>She Negotiated $18k More at Her First Job. Here's Her Script.</h3>
+          <p>A Deloitte-bound engineer shares the exact words she used — and what happened when she said them out loud.</p>
+          <div class="post-card-footer">
+            <div class="post-author"><div class="post-author-dot"></div> Guest Post</div>
+            <span class="post-read">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="post-card" href="#" data-category="stem">
+        <div class="post-card-img c6">
+          <div class="post-card-img-txt">Ada</div>
+          <span class="post-tag-pill">History</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta">5 min read · Feb 26, 2026</div>
+          <h3>Ada Lovelace Wrote the World's First Algorithm. In 1843. As a Woman.</h3>
+          <p>The story of the woman who invented computer programming — a full century before computers existed.</p>
+          <div class="post-card-footer">
+            <div class="post-author"><div class="post-author-dot"></div> AdaAscend Team</div>
+            <span class="post-read">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="post-card" href="#" data-category="interviews">
+        <div class="post-card-img c3">
+          <div class="post-card-img-txt">LC</div>
+          <span class="post-tag-pill">Interviews</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta">8 min read · Feb 20, 2026</div>
+          <h3>I Failed My Google Interview Twice. The Third Time I Got the Offer.</h3>
+          <p>What changed between attempt two and three — and the one mindset shift that made all the difference.</p>
+          <div class="post-card-footer">
+            <div class="post-author"><div class="post-author-dot"></div> Guest Post</div>
+            <span class="post-read">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="post-card" href="#" data-category="resume">
+        <div class="post-card-img c1">
+          <div class="post-card-img-txt">CV</div>
+          <span class="post-tag-pill">Resume</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta">5 min read · Feb 15, 2026</div>
+          <h3>The 7 Resume Mistakes New STEM Grads Make (And How to Fix Them)</h3>
+          <p>Your GPA section is taking up too much space. Your summary is a job description. Your bullets don't have numbers. Let's fix all of that.</p>
+          <div class="post-card-footer">
+            <div class="post-author"><div class="post-author-dot"></div> AdaAscend Team</div>
+            <span class="post-read">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="post-card" href="#" data-category="stories">
+        <div class="post-card-img c4">
+          <div class="post-card-img-txt">✦</div>
+          <span class="post-tag-pill">Stories</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta">6 min read · Feb 10, 2026</div>
+          <h3>"I Was the Only Woman on My Team for 3 Years. Here's What I Learned."</h3>
+          <p>An honest reflection on navigating a male-dominated engineering floor — and the small things that made a big difference.</p>
+          <div class="post-card-footer">
+            <div class="post-author"><div class="post-author-dot"></div> Guest Post</div>
+            <span class="post-read">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="post-card" href="#" data-category="negotiation">
+        <div class="post-card-img c5">
+          <div class="post-card-img-txt">OC</div>
+          <span class="post-tag-pill">Career</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta">4 min read · Feb 5, 2026</div>
+          <h3>How to Ask for a Promotion Without Feeling Like You're Asking for Too Much</h3>
+          <p>The internal script that holds so many women back — and a concrete framework for rewriting it before your next review.</p>
+          <div class="post-card-footer">
+            <div class="post-author"><div class="post-author-dot"></div> AdaAscend Coach</div>
+            <span class="post-read">Read →</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter">
+    <div class="newsletter-inner">
+      <div>
+        <h3>Get the <em>good stuff</em><br/>in your inbox.</h3>
+        <p>One email a week. Career tips, new posts, and early access to AdaAscend features — written for women in STEM, by women in STEM.</p>
+      </div>
+      <div>
+        <div class="newsletter-form" id="nl-form">
+          <input type="email" id="nl-email" placeholder="your@email.com"/>
+          <button onclick="nlSignup()">Subscribe</button>
+        </div>
+        <div class="newsletter-success" id="nl-success">🎉 You're subscribed! Talk soon.</div>
+        <p class="newsletter-note">No spam. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WRITE FOR US -->
+  <div class="write-for-us">
+    <div class="write-content">
+      <h4>Write for AdaAscend ✦</h4>
+      <p>Are you a woman in STEM with a story, lesson, or perspective worth sharing? We want to hear from you. Guest posts welcome — all experience levels.</p>
+    </div>
+    <button class="write-btn" onclick="alert('Coming soon! Email us at blog@adaascend.com')">Submit a Post →</button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a class="logo" href="adaascend-landing.html" style="text-decoration:none;">
+      <span class="logo-ada">Ada</span><span class="logo-her">Ascend</span>
+    </a>
+    <span>© 2026 AdaAscend. Ascend further. Named for Ada Lovelace.</span>
+    <span>adaascend.com</span>
+  </footer>
+
+  <script>
+    function filter(btn, category) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.post-card').forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function nlSignup() {
+      const email = document.getElementById('nl-email').value.trim();
+      if (!email || !email.includes('@')) {
+        document.getElementById('nl-email').style.borderColor = 'var(--rose)';
+        setTimeout(() => document.getElementById('nl-email').style.borderColor = '', 1500);
+        return;
+      }
+      document.getElementById('nl-form').style.display = 'none';
+      document.getElementById('nl-success').style.display = 'block';
+      console.log('Newsletter signup:', email);
+    }
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.post-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = 'opacity 0.5s, transform 0.5s';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
