@@ -741,6 +741,64 @@
       .founder-inner { grid-template-columns: 1fr; gap: 2.5rem; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
     }
+
+    /* HAMBURGER MENU */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 200;
+    }
+
+    .hamburger span {
+      width: 24px; height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: all 0.3s;
+      display: block;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(250,247,242,0.98);
+      backdrop-filter: blur(20px);
+      z-index: 150;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 700;
+      color: var(--ink); text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: color 0.2s;
+    }
+
+    .mobile-menu a:hover { color: var(--rose); }
+
+    .mobile-menu .mobile-cta {
+      margin-top: 1rem;
+      padding: 0.85rem 2.5rem;
+      background: var(--ink); color: var(--cream) !important;
+      border-radius: 4px; font-size: 1rem !important;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+    }
   </style>
 </head>
 <body>
@@ -758,7 +816,20 @@
       <a href="adaascend-contact.html">Work With Us</a>
       <a href="#waitlist" class="nav-cta">Join Waitlist</a>
     </div>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#offerings" onclick="closeMenu()">What We Offer</a>
+    <a href="#founder" onclick="closeMenu()">Our Story</a>
+    <a href="#pricing" onclick="closeMenu()">Pricing</a>
+    <a href="https://adaascend.substack.com/" target="_blank" onclick="closeMenu()">Blog</a>
+    <a href="adaascend-contact.html" onclick="closeMenu()">Work With Us</a>
+    <a href="#waitlist" class="mobile-cta" onclick="closeMenu()">Join Waitlist</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -809,7 +880,7 @@
         <div class="offering-num">01</div>
         <h3>AI Resume Builder</h3>
         <p>Paste any job description. Ada tailors your resume to match — keywords, impact, ATS score — in seconds. Built specifically for STEM roles.</p>
-        <span class="offering-tag">Available at launch</span>
+        <span class="offering-tag">Coming soon</span>
       </div>
       <div class="offering-card">
         <div class="offering-num">02</div>
@@ -882,7 +953,7 @@
   <!-- ADA STORY -->
   <section class="ada-story">
     <div class="section-eyebrow">Why Ada?</div>
-    <h2> Inspired by the woman who<br/><em>invented</em> the future.</h2>
+    <h2>Inspired by the woman who<br/><em>invented</em> the future.</h2>
     <p><strong>Ada Lovelace</strong> was the world's first computer programmer. In the 1800s, when women weren't supposed to do mathematics, she wrote the first algorithm ever designed for a machine.</p>
     <p>She didn't just belong in STEM — she <strong>created</strong> it. AdaAscend exists to carry that spirit forward. Every woman who uses this platform is continuing the work Ada started.</p>
   </section>
@@ -891,18 +962,18 @@
   <section class="pricing" id="pricing">
     <div class="section-eyebrow">Pricing</div>
     <h2>Simple, honest pricing.</h2>
-    <p>No hidden fees. Cancel anytime. Early access members lock in their rate for the first year!.</p>
+    <p>No hidden fees. Cancel anytime. Early access members lock in their rate forever.</p>
     <div class="pricing-cards">
       <div class="pricing-card">
         <div class="pricing-tier">Starter</div>
         <div class="pricing-price"><sup>$</sup>0<sub>/mo</sub></div>
         <p class="pricing-desc">For women just getting started. Try Ada before you commit.</p>
         <ul class="pricing-features">
-          <li>3 resume tailors / month</li>
+          <li>1 resume tailors / month</li>
           <li>ATS score checker</li>
           <li>Basic keyword matching</li>
         </ul>
-        <button class="pricing-btn outline">Get Started Free</button>
+        <a href="#waitlist" class="pricing-btn outline">Get Started Free</a>
       </div>
       <div class="pricing-card featured">
         <div class="featured-label">Most Popular</div>
@@ -916,7 +987,7 @@
           <li>Impact statement rewriter</li>
           <li>Priority support</li>
         </ul>
-        <button class="pricing-btn solid">Join Waitlist</button>
+        <a href="#waitlist" class="pricing-btn solid">Join Waitlist</a>
       </div>
       <div class="pricing-card">
         <div class="pricing-tier">Coached</div>
@@ -929,7 +1000,7 @@
           <li>Mock interview + feedback</li>
           <li>Offer negotiation support</li>
         </ul>
-        <button class="pricing-btn outline">Join Waitlist</button>
+        <a href="#waitlist" class="pricing-btn outline">Join Waitlist</a>
       </div>
     </div>
   </section>
@@ -1057,6 +1128,19 @@
       document.getElementById('sponsor-form').style.display = 'none';
       document.getElementById('sponsor-success').style.display = 'block';
       console.log('Founding supporter signup:', email);
+    }
+
+
+    function toggleMenu() {
+      document.getElementById('hamburger').classList.toggle('open');
+      document.getElementById('mobile-menu').classList.toggle('open');
+      document.body.style.overflow = document.getElementById('mobile-menu').classList.contains('open') ? 'hidden' : '';
+    }
+
+    function closeMenu() {
+      document.getElementById('hamburger').classList.remove('open');
+      document.getElementById('mobile-menu').classList.remove('open');
+      document.body.style.overflow = '';
     }
 
     async function signup(inputId, successId, formId) {
