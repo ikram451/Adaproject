@@ -1059,7 +1059,7 @@
       console.log('Founding supporter signup:', email);
     }
 
-    function signup(inputId, successId, formId) {
+    async function signup(inputId, successId, formId) {
       const input = document.getElementById(inputId);
       const success = document.getElementById(successId);
       const form = document.getElementById(formId);
@@ -1072,9 +1072,18 @@
         return;
       }
 
+      try {
+        await fetch('https://formspree.io/f/mbdzddbj', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ email: email, source: formId })
+        });
+      } catch (e) {
+        console.log('Formspree error:', e);
+      }
+
       form.style.display = 'none';
       success.style.display = 'block';
-      console.log('Waitlist signup:', email);
     }
 
     document.querySelectorAll('input[type="email"]').forEach(input => {
