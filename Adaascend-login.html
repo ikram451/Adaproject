@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AdaAscend — Sign In</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1520;
+      --cream: #faf7f2;
+      --warm: #f0e9dc;
+      --border: rgba(26,21,32,0.1);
+      --gold: #b8955a;
+      --gold-dim: rgba(184,149,90,0.12);
+      --rose: #b85c4a;
+      --rose-dim: rgba(184,92,74,0.1);
+      --muted: #7a6e6a;
+      --white: #fdfaf6;
+      --green: #3a6e4a;
+      --green-dim: rgba(58,110,74,0.1);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.55;
+    }
+
+    /* LEFT PANEL */
+    .left-panel {
+      background: var(--ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+    }
+
+    .left-panel::before {
+      content: '';
+      position: absolute; bottom: -10%; right: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(184,149,90,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .left-panel::after {
+      content: '';
+      position: absolute; top: -10%; left: -5%;
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(184,92,74,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .panel-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--cream);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.4rem;
+      position: relative; z-index: 1;
+    }
+
+    .panel-logo em { font-style: italic; color: var(--rose); }
+    .panel-logo span { color: var(--gold); }
+
+    .panel-body { position: relative; z-index: 1; }
+
+    .panel-eyebrow {
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+
+    .panel-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--gold); }
+
+    .panel-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 3.5vw, 3rem);
+      font-weight: 700; line-height: 1.1;
+      color: var(--cream); margin-bottom: 2rem;
+    }
+
+    .panel-headline em { font-style: italic; color: var(--rose); }
+
+    .testimonial {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(184,149,90,0.15);
+      border-radius: 10px; padding: 1.5rem;
+      max-width: 380px;
+    }
+
+    .testimonial-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-style: italic;
+      line-height: 1.8; color: rgba(250,247,242,0.65);
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-author {
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+
+    .testimonial-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--rose));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem; font-weight: 700; color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .testimonial-name {
+      font-size: 0.82rem; font-weight: 500; color: rgba(250,247,242,0.7);
+    }
+
+    .testimonial-role {
+      font-size: 0.72rem; color: rgba(250,247,242,0.3);
+    }
+
+    .panel-footer {
+      position: relative; z-index: 1;
+      font-size: 0.72rem; color: rgba(250,247,242,0.2);
+    }
+
+    /* RIGHT PANEL */
+    .right-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      background: var(--cream);
+    }
+
+    .auth-card { width: 100%; max-width: 420px; }
+
+    .auth-eyebrow {
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+
+    .auth-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--rose); }
+
+    .auth-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 700;
+      line-height: 1.1; margin-bottom: 0.5rem;
+    }
+
+    .auth-title em { font-style: italic; color: var(--rose); }
+
+    .auth-sub {
+      font-size: 0.88rem; color: var(--muted);
+      margin-bottom: 2rem; line-height: 1.6; font-weight: 300;
+    }
+
+    .form-group { margin-bottom: 1.1rem; }
+
+    .form-label {
+      display: block;
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.5rem;
+    }
+
+    .form-label-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .forgot-link {
+      font-size: 0.75rem; color: var(--gold);
+      text-decoration: none; font-weight: 400;
+    }
+
+    .forgot-link:hover { text-decoration: underline; }
+
+    .form-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      background: var(--white);
+      border: 1.5px solid rgba(184,149,90,0.25);
+      border-radius: 6px;
+      outline: none;
+      color: var(--ink);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input::placeholder { color: rgba(122,110,106,0.5); }
+
+    .form-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(184,149,90,0.1);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.95rem;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      border: none; border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover { background: var(--rose); }
+    .submit-btn:active { transform: scale(0.99); }
+    .submit-btn:disabled { background: rgba(26,21,32,0.3); cursor: not-allowed; transform: none; }
+
+    .divider {
+      display: flex; align-items: center; gap: 1rem;
+      margin: 1.5rem 0; color: var(--muted); font-size: 0.75rem;
+    }
+
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .google-btn {
+      width: 100%; padding: 0.85rem;
+      background: var(--white); color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem; font-weight: 400;
+      border: 1.5px solid rgba(184,149,90,0.25);
+      border-radius: 6px; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    }
+
+    .google-btn:hover { border-color: rgba(184,149,90,0.5); background: var(--warm); }
+
+    .google-icon { width: 18px; height: 18px; }
+
+    .alert {
+      padding: 0.85rem 1rem; border-radius: 6px;
+      font-size: 0.82rem; margin-bottom: 1.25rem;
+      display: none; line-height: 1.5;
+    }
+
+    .alert.error { background: var(--rose-dim); color: var(--rose); border: 1px solid rgba(184,92,74,0.2); display: block; }
+    .alert.success { background: var(--green-dim); color: var(--green); border: 1px solid rgba(58,110,74,0.2); display: block; }
+
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(250,247,242,0.3);
+      border-top-color: var(--cream);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .btn-inner { display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.82rem; color: var(--muted);
+    }
+
+    .auth-footer a { color: var(--rose); text-decoration: none; font-weight: 500; }
+    .auth-footer a:hover { text-decoration: underline; }
+
+    /* FORGOT PASSWORD MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(26,21,32,0.6);
+      z-index: 1000;
+      align-items: center; justify-content: center;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 2rem;
+      width: 100%; max-width: 380px;
+      border: 1px solid rgba(184,149,90,0.2);
+    }
+
+    .modal h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.6; }
+
+    .modal-close {
+      float: right; background: none; border: none;
+      font-size: 1.2rem; cursor: pointer; color: var(--muted);
+      margin-top: -0.25rem;
+    }
+
+    .modal-btn {
+      width: 100%; padding: 0.85rem;
+      background: var(--ink); color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      border: none; border-radius: 6px; cursor: pointer;
+      transition: background 0.2s; margin-top: 0.5rem;
+    }
+
+    .modal-btn:hover { background: var(--rose); }
+
+    @media (max-width: 768px) {
+      body { grid-template-columns: 1fr; }
+      .left-panel { display: none; }
+      .right-panel { padding: 2rem 1.5rem; align-items: flex-start; padding-top: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <a href="index.html" class="panel-logo"><em>Ada</em><span>Ascend</span></a>
+
+    <div class="panel-body">
+      <div class="panel-eyebrow">Welcome back</div>
+      <h1 class="panel-headline">Good to have<br/>you <em>back.</em></h1>
+      <div class="testimonial">
+        <p class="testimonial-text">"I applied to Google three times and never heard back. I used Ada to tailor my resume and got an interview within two weeks."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">PR</div>
+          <div>
+            <div class="testimonial-name">Priya R.</div>
+            <div class="testimonial-role">Software Engineer · University of Michigan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-footer">© 2026 AdaAscend. Named for Ada Lovelace.</div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="auth-card">
+      <div class="auth-eyebrow">Sign in</div>
+      <h2 class="auth-title"><em>Welcome</em> back</h2>
+      <p class="auth-sub">Your resume history and coaching sessions are waiting.</p>
+
+      <div class="alert" id="alert"></div>
+
+      <button class="google-btn" onclick="signInWithGoogle()">
+        <svg class="google-icon" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div class="divider">or sign in with email</div>
+
+      <div class="form-group">
+        <label class="form-label">Email address</label>
+        <input class="form-input" id="email" type="email" placeholder="you@email.com" autocomplete="email"/>
+      </div>
+
+      <div class="form-group">
+        <div class="form-label-row">
+          <label class="form-label" style="margin:0">Password</label>
+          <a href="#" class="forgot-link" onclick="openForgot(event)">Forgot password?</a>
+        </div>
+        <input class="form-input" id="password" type="password" placeholder="Your password" autocomplete="current-password"/>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="handleSignIn()">
+        <div class="btn-inner">
+          <div class="spinner" id="spinner"></div>
+          <span id="btnText">Sign in to AdaAscend</span>
+        </div>
+      </button>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="adaascend-signup.html">Join free →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORGOT PASSWORD MODAL -->
+  <div class="modal-overlay" id="forgotModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeForgot()">✕</button>
+      <h3>Reset password</h3>
+      <p>Enter your email and we'll send you a link to reset your password.</p>
+      <div class="alert" id="modal-alert"></div>
+      <div class="form-group">
+        <label class="form-label">Email address</label>
+        <input class="form-input" id="reset-email" type="email" placeholder="you@email.com"/>
+      </div>
+      <button class="modal-btn" onclick="sendReset()">Send reset link</button>
+    </div>
+  </div>
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // ─── CONFIG: Replace these two values with your Supabase project details ───
+    // Get them from: https://supabase.com → your project → Settings → API
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    // ──────────────────────────────────────────────────────────────────────────
+
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    function showAlert(id, msg, type) {
+      const el = document.getElementById(id);
+      el.textContent = msg;
+      el.className = 'alert ' + type;
+    }
+
+    function setLoading(on) {
+      document.getElementById('spinner').style.display = on ? 'block' : 'none';
+      document.getElementById('btnText').textContent = on ? 'Signing in...' : 'Sign in to AdaAscend';
+      document.getElementById('submitBtn').disabled = on;
+    }
+
+    async function handleSignIn() {
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      document.getElementById('alert').className = 'alert';
+
+      if (!email || !email.includes('@')) return showAlert('alert', 'Please enter a valid email address.', 'error');
+      if (!password) return showAlert('alert', 'Please enter your password.', 'error');
+
+      setLoading(true);
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+      setLoading(false);
+
+      if (error) {
+        showAlert('alert', error.message === 'Invalid login credentials'
+          ? 'Incorrect email or password. Please try again.'
+          : error.message, 'error');
+      } else {
+        window.location.href = 'adaascend-dashboard.html';
+      }
+    }
+
+    async function signInWithGoogle() {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.origin + '/adaascend-dashboard.html' }
+      });
+      if (error) showAlert('alert', error.message, 'error');
+    }
+
+    function openForgot(e) {
+      e.preventDefault();
+      document.getElementById('forgotModal').classList.add('open');
+      const email = document.getElementById('email').value;
+      if (email) document.getElementById('reset-email').value = email;
+    }
+
+    function closeForgot() {
+      document.getElementById('forgotModal').classList.remove('open');
+      document.getElementById('modal-alert').className = 'alert';
+    }
+
+    async function sendReset() {
+      const email = document.getElementById('reset-email').value.trim();
+      document.getElementById('modal-alert').className = 'alert';
+      if (!email || !email.includes('@')) return showAlert('modal-alert', 'Please enter your email address.', 'error');
+
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + '/adaascend-reset.html'
+      });
+
+      if (error) {
+        showAlert('modal-alert', error.message, 'error');
+      } else {
+        showAlert('modal-alert', 'Reset link sent! Check your inbox.', 'success');
+        setTimeout(closeForgot, 3000);
+      }
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !document.getElementById('forgotModal').classList.contains('open')) handleSignIn();
+      if (e.key === 'Escape') closeForgot();
+    });
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) window.location.href = 'adaascend-dashboard.html';
+    });
+  </script>
+</body>
+</html>

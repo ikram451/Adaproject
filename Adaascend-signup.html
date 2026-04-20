@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AdaAscend — Join</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1520;
+      --cream: #faf7f2;
+      --warm: #f0e9dc;
+      --border: rgba(26,21,32,0.1);
+      --gold: #b8955a;
+      --gold-dim: rgba(184,149,90,0.12);
+      --rose: #b85c4a;
+      --rose-dim: rgba(184,92,74,0.1);
+      --muted: #7a6e6a;
+      --white: #fdfaf6;
+      --green: #3a6e4a;
+      --green-dim: rgba(58,110,74,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.55;
+    }
+
+    /* LEFT PANEL */
+    .left-panel {
+      background: var(--ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+    }
+
+    .left-panel::before {
+      content: '';
+      position: absolute; top: -15%; right: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(184,92,74,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .left-panel::after {
+      content: '';
+      position: absolute; bottom: -10%; left: -10%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(184,149,90,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .panel-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--cream);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.4rem;
+      position: relative; z-index: 1;
+    }
+
+    .panel-logo em { font-style: italic; color: var(--rose); }
+    .panel-logo span { color: var(--gold); }
+
+    .panel-body {
+      position: relative; z-index: 1;
+    }
+
+    .panel-eyebrow {
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+
+    .panel-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--gold); }
+
+    .panel-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 3.5vw, 3rem);
+      font-weight: 700; line-height: 1.1;
+      color: var(--cream); margin-bottom: 1.5rem;
+    }
+
+    .panel-headline em { font-style: italic; color: var(--rose); }
+
+    .panel-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-style: italic;
+      line-height: 1.8; color: rgba(250,247,242,0.55);
+      border-left: 2px solid rgba(184,149,90,0.4);
+      padding-left: 1.25rem; margin-bottom: 2rem;
+      max-width: 380px;
+    }
+
+    .panel-stats {
+      display: flex; gap: 2rem;
+    }
+
+    .panel-stat .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--gold); line-height: 1;
+    }
+
+    .panel-stat .lbl {
+      font-size: 0.72rem; color: rgba(250,247,242,0.35);
+      margin-top: 0.2rem; letter-spacing: 0.03em;
+    }
+
+    .panel-footer {
+      position: relative; z-index: 1;
+      font-size: 0.72rem; color: rgba(250,247,242,0.2);
+      letter-spacing: 0.04em;
+    }
+
+    /* RIGHT PANEL */
+    .right-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      background: var(--cream);
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .auth-eyebrow {
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+
+    .auth-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--rose); }
+
+    .auth-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 700;
+      line-height: 1.1; margin-bottom: 0.5rem;
+    }
+
+    .auth-title em { font-style: italic; color: var(--rose); }
+
+    .auth-sub {
+      font-size: 0.88rem; color: var(--muted);
+      margin-bottom: 2rem; line-height: 1.6; font-weight: 300;
+    }
+
+    .form-group { margin-bottom: 1.1rem; }
+
+    .form-label {
+      display: block;
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.5rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      background: var(--white);
+      border: 1.5px solid rgba(184,149,90,0.25);
+      border-radius: 6px;
+      outline: none;
+      color: var(--ink);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input::placeholder { color: rgba(122,110,106,0.5); }
+
+    .form-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(184,149,90,0.1);
+    }
+
+    .form-input.error {
+      border-color: var(--rose);
+      box-shadow: 0 0 0 3px rgba(184,92,74,0.1);
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.95rem;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      border: none; border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 0.5rem;
+      position: relative;
+    }
+
+    .submit-btn:hover { background: var(--rose); }
+    .submit-btn:active { transform: scale(0.99); }
+    .submit-btn:disabled { background: rgba(26,21,32,0.3); cursor: not-allowed; transform: none; }
+
+    .divider {
+      display: flex; align-items: center; gap: 1rem;
+      margin: 1.5rem 0; color: var(--muted); font-size: 0.75rem;
+    }
+
+    .divider::before, .divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    .google-btn {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--white);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem; font-weight: 400;
+      border: 1.5px solid rgba(184,149,90,0.25);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    }
+
+    .google-btn:hover { border-color: rgba(184,149,90,0.5); background: var(--warm); }
+
+    .google-icon {
+      width: 18px; height: 18px;
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.82rem; color: var(--muted);
+    }
+
+    .auth-footer a { color: var(--rose); text-decoration: none; font-weight: 500; }
+    .auth-footer a:hover { text-decoration: underline; }
+
+    .terms {
+      font-size: 0.72rem; color: rgba(122,110,106,0.6);
+      text-align: center; margin-top: 1rem; line-height: 1.6;
+    }
+
+    .terms a { color: var(--gold); text-decoration: none; }
+
+    .alert {
+      padding: 0.85rem 1rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      margin-bottom: 1.25rem;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .alert.error { background: var(--rose-dim); color: var(--rose); border: 1px solid rgba(184,92,74,0.2); display: block; }
+    .alert.success { background: var(--green-dim); color: var(--green); border: 1px solid rgba(58,110,74,0.2); display: block; }
+
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(250,247,242,0.3);
+      border-top-color: var(--cream);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .btn-inner { display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+    /* PASSWORD STRENGTH */
+    .pw-strength { margin-top: 6px; display: flex; gap: 4px; height: 3px; }
+    .pw-bar { flex: 1; border-radius: 2px; background: rgba(184,149,90,0.15); transition: background 0.3s; }
+    .pw-bar.weak { background: var(--rose); }
+    .pw-bar.medium { background: var(--gold); }
+    .pw-bar.strong { background: var(--green); }
+
+    @media (max-width: 768px) {
+      body { grid-template-columns: 1fr; }
+      .left-panel { display: none; }
+      .right-panel { padding: 2rem 1.5rem; align-items: flex-start; padding-top: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <a href="index.html" class="panel-logo"><em>Ada</em><span>Ascend</span></a>
+
+    <div class="panel-body">
+      <div class="panel-eyebrow">For women in STEM</div>
+      <h1 class="panel-headline">Your story,<br/><em>brilliantly</em><br/>told.</h1>
+      <p class="panel-quote">"The gap between who gets the interview and who doesn't has nothing to do with talent. It's about how your story is told."</p>
+      <div class="panel-stats">
+        <div class="panel-stat">
+          <div class="num">500+</div>
+          <div class="lbl">Resumes tailored</div>
+        </div>
+        <div class="panel-stat">
+          <div class="num">94%</div>
+          <div class="lbl">Interview rate</div>
+        </div>
+        <div class="panel-stat">
+          <div class="num">4.9★</div>
+          <div class="lbl">Avg rating</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-footer">Named for Ada Lovelace — the world's first programmer.</div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="auth-card">
+      <div class="auth-eyebrow">Create your account</div>
+      <h2 class="auth-title">Join <em>AdaAscend</em></h2>
+      <p class="auth-sub">Free for your first 3 resume tailors. No credit card required.</p>
+
+      <div class="alert" id="alert"></div>
+
+      <button class="google-btn" onclick="signUpWithGoogle()">
+        <svg class="google-icon" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div class="divider">or sign up with email</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First name</label>
+          <input class="form-input" id="firstName" type="text" placeholder="Ada" autocomplete="given-name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last name</label>
+          <input class="form-input" id="lastName" type="text" placeholder="Lovelace" autocomplete="family-name"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email address</label>
+        <input class="form-input" id="email" type="email" placeholder="you@university.edu" autocomplete="email"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" id="password" type="password" placeholder="At least 8 characters" autocomplete="new-password" oninput="checkStrength(this.value)"/>
+        <div class="pw-strength">
+          <div class="pw-bar" id="bar1"></div>
+          <div class="pw-bar" id="bar2"></div>
+          <div class="pw-bar" id="bar3"></div>
+          <div class="pw-bar" id="bar4"></div>
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="handleSignUp()">
+        <div class="btn-inner">
+          <div class="spinner" id="spinner"></div>
+          <span id="btnText">Create my account</span>
+        </div>
+      </button>
+
+      <p class="terms">By joining you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+
+      <div class="auth-footer">
+        Already have an account? <a href="adaascend-login.html">Sign in →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // ─── CONFIG: Replace these two values with your Supabase project details ───
+    // Get them from: https://supabase.com → your project → Settings → API
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    // ──────────────────────────────────────────────────────────────────────────
+
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    function checkStrength(pw) {
+      const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3'), document.getElementById('bar4')];
+      bars.forEach(b => b.className = 'pw-bar');
+      if (!pw) return;
+      let score = 0;
+      if (pw.length >= 8) score++;
+      if (/[A-Z]/.test(pw)) score++;
+      if (/[0-9]/.test(pw)) score++;
+      if (/[^A-Za-z0-9]/.test(pw)) score++;
+      const cls = score <= 1 ? 'weak' : score <= 2 ? 'medium' : 'strong';
+      for (let i = 0; i < score; i++) bars[i].classList.add(cls);
+    }
+
+    function showAlert(msg, type) {
+      const el = document.getElementById('alert');
+      el.textContent = msg;
+      el.className = 'alert ' + type;
+    }
+
+    function setLoading(on) {
+      document.getElementById('spinner').style.display = on ? 'block' : 'none';
+      document.getElementById('btnText').textContent = on ? 'Creating account...' : 'Create my account';
+      document.getElementById('submitBtn').disabled = on;
+    }
+
+    async function handleSignUp() {
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName  = document.getElementById('lastName').value.trim();
+      const email     = document.getElementById('email').value.trim();
+      const password  = document.getElementById('password').value;
+
+      document.getElementById('alert').className = 'alert';
+
+      if (!firstName || !lastName) return showAlert('Please enter your first and last name.', 'error');
+      if (!email || !email.includes('@')) return showAlert('Please enter a valid email address.', 'error');
+      if (password.length < 8) return showAlert('Password must be at least 8 characters.', 'error');
+
+      setLoading(true);
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { first_name: firstName, last_name: lastName, full_name: `${firstName} ${lastName}` }
+        }
+      });
+
+      setLoading(false);
+
+      if (error) {
+        showAlert(error.message, 'error');
+      } else if (data.user && !data.session) {
+        showAlert('Almost there! Check your email to confirm your account, then come back to sign in.', 'success');
+      } else {
+        window.location.href = 'adaascend-dashboard.html';
+      }
+    }
+
+    async function signUpWithGoogle() {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.origin + '/adaascend-dashboard.html' }
+      });
+      if (error) showAlert(error.message, 'error');
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter') handleSignUp();
+    });
+  </script>
+</body>
+</html>
