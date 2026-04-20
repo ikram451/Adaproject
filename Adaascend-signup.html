@@ -342,7 +342,7 @@
     <div class="auth-card">
       <div class="auth-eyebrow">Create your account</div>
       <h2 class="auth-title">Join <em>AdaAscend</em></h2>
-      <p class="auth-sub">Free for your first 3 resume tailors. No credit card required.</p>
+      <p class="auth-sub">Your first resume tailor is on us. No credit card required.</p>
 
       <div class="alert" id="alert"></div>
 
@@ -401,15 +401,15 @@
   </div>
 
   <!-- SUPABASE -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <script>
     // ─── CONFIG: Replace these two values with your Supabase project details ───
     // Get them from: https://supabase.com → your project → Settings → API
-    const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    const SUPABASE_URL = 'https://rcwcaradnqvdyrzpyaeo.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjd2NhcmFkbnF2ZHlyenB5YWVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2Mzc5MjAsImV4cCI6MjA5MjIxMzkyMH0.ztApFwmrk_8jebj7MMt-OYG7xEMvmKPF49pT5GqO1yg';
     // ──────────────────────────────────────────────────────────────────────────
 
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     function checkStrength(pw) {
       const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3'), document.getElementById('bar4')];
@@ -450,7 +450,7 @@
 
       setLoading(true);
 
-      const { data, error } = await supabase.auth.signUp({
+      const { data, error } = await supabaseClient.auth.signUp({
         email,
         password,
         options: {
@@ -470,7 +470,7 @@
     }
 
     async function signUpWithGoogle() {
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { error } = await supabaseClient.auth.signInWithOAuth({
         provider: 'google',
         options: { redirectTo: window.location.origin + '/adaascend-dashboard.html' }
       });

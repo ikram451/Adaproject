@@ -547,30 +547,18 @@
 
     .cta p { color: var(--muted); font-size: 1rem; margin-bottom: 2.5rem; }
 
-    .cta-form { display: flex; gap: 0; max-width: 460px; margin: 0 auto; }
+   .cta-form { display: flex; justify-content: center; max-width: 460px; margin: 0 auto; }
 
-    .cta-form input {
-      flex: 1; padding: 1rem 1.25rem;
-      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
-      background: var(--white);
-      border: 1.5px solid rgba(184,149,90,0.35);
-      border-right: none; border-radius: 4px 0 0 4px;
-      outline: none; color: var(--ink); transition: border-color 0.2s;
-    }
-
-    .cta-form input:focus { border-color: var(--gold); }
-    .cta-form input::placeholder { color: var(--muted); }
-
-    .cta-form button {
-      padding: 1rem 1.5rem;
-      background: var(--rose); color: var(--cream);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.78rem; font-weight: 500;
-      letter-spacing: 0.07em; text-transform: uppercase;
-      border: none; border-radius: 0 4px 4px 0;
-      cursor: pointer; transition: background 0.2s; white-space: nowrap;
-    }
-
+  .cta-form button {
+  padding: 1rem 1.5rem;
+  background: var(--rose); color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  border: none; border-radius: 4px;
+  cursor: pointer; transition: background 0.2s; white-space: nowrap;
+  display: block; margin: 0 auto;
+}
     .cta-form button:hover { background: #9a4a3a; }
 
     /* FOOTER */
@@ -903,7 +891,8 @@
       <a href="#reviews">Reviews</a>
       <a href="https://adaascend.substack.com/" target="_blank">Blog</a>
       <a href="adaascend-contact.html">Work With Us</a>
-      <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+      <a href="adaascend-login.html">Log-In</a>
+      <a href="adaascend-signup.html" class="nav-cta">Signup</a>
     </div>
     <div class="hamburger" id="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
@@ -1282,8 +1271,7 @@
     <h2>The next Ada<br/>starts <em>here.</em></h2>
     <p>Join the waitlist. First 100 women get free Pro access at launch.</p>
     <div class="cta-form" id="cta-form">
-      <input type="email" id="cta-email" placeholder="your@email.com" />
-      <button onclick="signup('cta-email','cta-success','cta-form')">Join the Waitlist</button>
+  <a href="adaascend-signup.html" class="nav-cta" style="display:inline-block; padding: 1rem 1.5rem; text-decoration:none;">Get Early Access</a>
     </div>
     <div class="success-msg" id="cta-success" style="margin: 1rem auto; max-width: 460px;">
       🎉 You're on the list! We'll reach out before we launch.
