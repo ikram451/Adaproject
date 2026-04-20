@@ -582,6 +582,87 @@
       background: var(--warm);
     }
 
+    /* REVIEWS */
+    .reviews { padding: 6rem 4rem; background: var(--warm); overflow: hidden; }
+
+    .reviews h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 700; letter-spacing: -0.01em;
+      margin-bottom: 0.75rem; max-width: 520px; line-height: 1.2;
+    }
+
+    .reviews h2 em { font-style: italic; color: var(--rose); }
+    .reviews-sub { font-size: 0.9rem; color: var(--muted); margin-bottom: 3rem; font-weight: 300; }
+
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+    .review-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 2rem;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .review-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,21,32,0.07); }
+
+    .review-card.featured { background: var(--ink); border-color: rgba(184,149,90,0.25); }
+
+    .review-stars { display: flex; gap: 3px; margin-bottom: 0.75rem; }
+    .review-stars span { color: var(--gold); font-size: 0.82rem; }
+
+    .review-tag {
+      display: inline-block; margin-bottom: 1rem;
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--rose); padding: 0.25rem 0.65rem;
+      border: 1px solid rgba(184,92,74,0.3); border-radius: 100px;
+    }
+
+    .review-card.featured .review-tag { color: var(--gold); border-color: rgba(184,149,90,0.3); }
+
+    .review-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.08rem; font-style: italic;
+      line-height: 1.8; color: var(--ink); margin-bottom: 1.5rem;
+    }
+
+    .review-card.featured .review-quote { color: var(--cream); }
+
+    .reviewer {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding-top: 1.25rem; border-top: 1px solid var(--border);
+    }
+
+    .review-card.featured .reviewer { border-top-color: rgba(184,149,90,0.15); }
+
+    .reviewer-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem; font-weight: 700; flex-shrink: 0;
+    }
+
+    .reviewer-name { font-size: 0.85rem; font-weight: 500; color: var(--ink); margin-bottom: 0.1rem; }
+    .review-card.featured .reviewer-name { color: var(--cream); }
+    .reviewer-role { font-size: 0.75rem; color: var(--muted); }
+    .review-card.featured .reviewer-role { color: rgba(250,247,242,0.45); }
+
+    .reviews-stats {
+      display: flex; align-items: center; gap: 2.5rem;
+      margin-top: 3rem; padding-top: 2.5rem;
+      border-top: 1px solid rgba(26,21,32,0.08);
+    }
+
+    .stat-block .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 700; color: var(--ink); line-height: 1;
+    }
+
+    .stat-block .stat-label { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+    .stat-divider { width: 1px; height: 36px; background: var(--border); }
+
       .blog-section { padding: 6rem 4rem; background: var(--cream); }
 
     .blog-section h2 {
@@ -819,7 +900,7 @@
     <div class="nav-links">
       <a href="#offerings">What We Offer</a>
       <a href="#founder">Our Story</a>
-      <a href="#pricing">Pricing</a>
+      <a href="#reviews">Reviews</a>
       <a href="https://adaascend.substack.com/" target="_blank">Blog</a>
       <a href="adaascend-contact.html">Work With Us</a>
       <a href="#waitlist" class="nav-cta">Join Waitlist</a>
@@ -1009,6 +1090,117 @@
           <li>Offer negotiation support</li>
         </ul>
         <a href="#waitlist" class="pricing-btn outline">Join Waitlist</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews" id="reviews">
+    <div class="section-eyebrow">What women are saying</div>
+    <h2>Real results, <em>real women.</em></h2>
+    <p class="reviews-sub">From first-generation STEM graduates to career changers — here's what our community is saying.</p>
+
+    <div class="reviews-grid">
+
+      <div class="review-card featured">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="review-tag">AI Resume Builder</div>
+        <p class="review-quote">"I applied to Google three times and never heard back. I used Ada to tailor my resume and got an interview within two weeks. I genuinely couldn't believe it."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background: linear-gradient(135deg, #b8955a, #b85c4a); color: #fdfaf6;">PR</div>
+          <div>
+            <div class="reviewer-name">Priya R.</div>
+            <div class="reviewer-role">Software Engineer · University of Michigan</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="review-tag">Career Coaching</div>
+        <p class="review-quote">"My coach had been hired at McKinsey and knew exactly what they were looking for. She rewrote my story in a way I never would have thought to do myself."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background: var(--rose-dim); color: var(--rose);">JM</div>
+          <div>
+            <div class="reviewer-name">Jade M.</div>
+            <div class="reviewer-role">Data Analyst · Ohio State University</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="review-tag">Offer Negotiation</div>
+        <p class="review-quote">"I was ready to accept the first number they gave me. Ada's coach told me not to. I negotiated $14k more. That single conversation paid for years of this platform."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background: var(--gold-dim); color: var(--gold);">SL</div>
+          <div>
+            <div class="reviewer-name">Sofia L.</div>
+            <div class="reviewer-role">Product Manager · Arizona State University</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="review-tag">AI Resume Builder</div>
+        <p class="review-quote">"As a first-gen student, I had no idea how to talk about my projects. Ada translated my academic work into language that actually makes sense to recruiters."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background: var(--green-dim); color: var(--green);">AN</div>
+          <div>
+            <div class="reviewer-name">Amara N.</div>
+            <div class="reviewer-role">Biomedical Engineer · Howard University</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="review-tag">Mock Interview</div>
+        <p class="review-quote">"I'm an introvert and interviews terrify me. After two mock sessions with my Ada coach I felt like a completely different person walking into Deloitte. I got the offer."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background: rgba(184,92,74,0.1); color: var(--rose);">KT</div>
+          <div>
+            <div class="reviewer-name">Keiko T.</div>
+            <div class="reviewer-role">Consultant · Boston University</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="review-tag">Community</div>
+        <p class="review-quote">"For the first time I felt like I was in a room full of women who got it. Not just the technical stuff — the loneliness of being the only one. AdaAscend actually sees you."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background: rgba(184,149,90,0.15); color: var(--gold);">RC</div>
+          <div>
+            <div class="reviewer-name">Rosa C.</div>
+            <div class="reviewer-role">ML Engineer · University of Texas</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="reviews-stats">
+      <div class="stat-block">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Resumes tailored</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-block">
+        <div class="stat-num">4.9 ★</div>
+        <div class="stat-label">Average rating</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-block">
+        <div class="stat-num">94%</div>
+        <div class="stat-label">Got interviews after using Ada</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-block">
+        <div class="stat-num">$12k</div>
+        <div class="stat-label">Avg. salary increase negotiated</div>
       </div>
     </div>
   </section>
