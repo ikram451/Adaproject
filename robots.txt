@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /adaascend-dashboard.html
+Disallow: /Adaascend-login.html
+Disallow: /Adaascend-signup.html
+
+Sitemap: https://www.adaascend.com/sitemap.xml
