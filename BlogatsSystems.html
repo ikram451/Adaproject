@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- SEO -->
+  <title>How ATS Systems Work — And How to Beat Them | AdaAscend</title>
+  <meta name="description" content="75% of resumes are rejected before a human ever reads them. Here's exactly how Applicant Tracking Systems work, what they scan for, and how women in STEM can write resumes that get through."/>
+  <meta name="keywords" content="how ATS systems work, beat ATS resume, applicant tracking system tips, ATS resume for women in STEM, ATS optimization, resume keywords, ATS friendly resume"/>
+  <meta name="author" content="AdaAscend"/>
+  <link rel="canonical" href="https://www.adaascend.com/blog-ats-systems.html"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="article"/>
+  <meta property="og:url"         content="https://www.adaascend.com/blog-ats-systems.html"/>
+  <meta property="og:title"       content="How ATS Systems Work — And How to Beat Them"/>
+  <meta property="og:description" content="75% of resumes never reach a human. Here's how to make sure yours does."/>
+  <meta property="og:image"       content="https://www.adaascend.com/og-image.png"/>
+  <meta property="og:site_name"   content="AdaAscend"/>
+
+  <!-- Article Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How ATS Systems Work — And How to Beat Them",
+    "description": "75% of resumes are rejected before a human ever reads them. Here's exactly how Applicant Tracking Systems work and how women in STEM can write resumes that get through.",
+    "author": { "@type": "Organization", "name": "AdaAscend" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "AdaAscend",
+      "logo": { "@type": "ImageObject", "url": "https://www.adaascend.com/logo.png" }
+    },
+    "datePublished": "2026-04-23",
+    "dateModified": "2026-04-23",
+    "mainEntityOfPage": "https://www.adaascend.com/blog-ats-systems.html"
+  }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1520;
+      --cream: #faf7f2;
+      --warm: #f0e9dc;
+      --border: rgba(26,21,32,0.1);
+      --gold: #b8955a;
+      --rose: #b85c4a;
+      --muted: #7a6e6a;
+      --white: #fdfaf6;
+      --green: #3a6e4a;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 4rem;
+      background: rgba(250,247,242,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(184,149,90,0.15);
+      position: sticky; top: 0; z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--ink); text-decoration: none;
+    }
+
+    .logo em { font-style: italic; color: var(--rose); }
+    .logo span { color: var(--gold); }
+
+    .nav-cta {
+      padding: 0.55rem 1.25rem;
+      background: var(--ink); color: var(--cream);
+      border-radius: 4px; text-decoration: none;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--rose); }
+
+    /* HERO */
+    .article-hero {
+      background: var(--ink);
+      padding: 5rem 4rem 4rem;
+      position: relative; overflow: hidden;
+    }
+
+    .article-hero::before {
+      content: 'ATS';
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18vw; font-weight: 700;
+      color: rgba(184,149,90,0.05);
+      top: 50%; right: -2%;
+      transform: translateY(-50%);
+      pointer-events: none; white-space: nowrap;
+    }
+
+    .article-meta {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+
+    .article-meta span { color: rgba(250,247,242,0.25); }
+
+    .article-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 700; line-height: 1.1;
+      color: var(--cream); max-width: 780px;
+      margin-bottom: 1.5rem; letter-spacing: -0.01em;
+    }
+
+    .article-title em { font-style: italic; color: var(--rose); }
+
+    .article-intro {
+      font-size: 1.05rem; line-height: 1.8;
+      color: rgba(250,247,242,0.55);
+      max-width: 620px; font-weight: 300;
+    }
+
+    /* CONTENT */
+    .article-body {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .article-body h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem; font-weight: 700;
+      line-height: 1.2; color: var(--ink);
+      margin: 3rem 0 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .article-body h2 em { font-style: italic; color: var(--rose); }
+
+    .article-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--ink); margin: 2rem 0 0.75rem;
+    }
+
+    .article-body p {
+      font-size: 1rem; line-height: 1.85;
+      color: #3a3036; margin-bottom: 1.25rem;
+    }
+
+    .article-body ul, .article-body ol {
+      padding-left: 1.5rem; margin-bottom: 1.25rem;
+    }
+
+    .article-body li {
+      font-size: 1rem; line-height: 1.85;
+      color: #3a3036; margin-bottom: 0.5rem;
+    }
+
+    .article-body strong { color: var(--ink); font-weight: 500; }
+
+    .article-body a { color: var(--rose); text-decoration: none; }
+    .article-body a:hover { text-decoration: underline; }
+
+    /* CALLOUT BOXES */
+    .callout {
+      border-left: 3px solid var(--gold);
+      background: rgba(184,149,90,0.06);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .callout.rose {
+      border-left-color: var(--rose);
+      background: rgba(184,92,74,0.05);
+    }
+
+    .callout.green {
+      border-left-color: var(--green);
+      background: rgba(58,110,74,0.05);
+    }
+
+    .callout-label {
+      font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.5rem;
+    }
+
+    .callout.rose .callout-label { color: var(--rose); }
+    .callout.green .callout-label { color: var(--green); }
+
+    .callout p { margin: 0; font-size: 0.95rem; }
+
+    /* STAT BLOCKS */
+    .stat-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; margin: 2rem 0;
+    }
+
+    .stat-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.25rem;
+      text-align: center;
+    }
+
+    .stat-box .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 700;
+      color: var(--rose); line-height: 1;
+    }
+
+    .stat-box .lbl {
+      font-size: 0.78rem; color: var(--muted);
+      margin-top: 0.35rem; line-height: 1.4;
+    }
+
+    /* CTA BLOCK */
+    .article-cta {
+      background: var(--ink);
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin: 3rem 0;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+
+    .article-cta::before {
+      content: '✦';
+      position: absolute; top: 1rem; right: 1.5rem;
+      font-size: 4rem; color: rgba(184,149,90,0.08);
+    }
+
+    .article-cta h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--cream); margin-bottom: 0.75rem;
+    }
+
+    .article-cta h3 em { font-style: italic; color: var(--rose); }
+
+    .article-cta p {
+      color: rgba(250,247,242,0.5);
+      margin-bottom: 1.5rem; font-size: 0.95rem;
+    }
+
+    .article-cta a {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      background: var(--gold); color: var(--ink);
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border-radius: 6px; text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .article-cta a:hover { background: var(--rose); color: var(--cream); }
+
+    /* DIVIDER */
+    .divider {
+      border: none; border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between;
+      align-items: center; font-size: 0.78rem;
+      color: var(--muted); background: var(--warm);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .article-hero { padding: 4rem 1.5rem 3rem; }
+      .article-body { padding: 2.5rem 1.5rem 4rem; }
+      .stat-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="logo"><em>Ada</em><span>Ascend</span></a>
+    <a href="Adaascend-signup.html" class="nav-cta">Try Ada Free</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="article-hero">
+    <div class="article-meta">
+      Career Advice <span>·</span> 7 min read <span>·</span> AdaAscend Team
+    </div>
+    <h1 class="article-title">How ATS Systems Work —<br/>And How to <em>Beat</em> Them</h1>
+    <p class="article-intro">75% of resumes are rejected before a human ever sees them. Here's exactly what's happening — and how to make sure yours gets through.</p>
+  </div>
+
+  <!-- BODY -->
+  <article class="article-body">
+
+    <p>You spent hours on your resume. You tailored it carefully. You hit submit — and then heard nothing. No rejection, no interview, just silence.</p>
+
+    <p>It probably wasn't your fault. It was likely an ATS.</p>
+
+    <p>Applicant Tracking Systems are the software gatekeepers that sit between your resume and a human recruiter. They parse, score, and rank every application automatically — and they reject the vast majority before anyone ever reads them. Understanding how they work is one of the most important things you can do for your job search.</p>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="num">75%</div>
+        <div class="lbl">of resumes rejected before reaching a human</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">98%</div>
+        <div class="lbl">of Fortune 500 companies use ATS software</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">6 sec</div>
+        <div class="lbl">average time a recruiter spends on a resume that does get through</div>
+      </div>
+    </div>
+
+    <h2>What <em>exactly</em> is an ATS?</h2>
+
+    <p>An Applicant Tracking System is software that companies use to manage job applications at scale. When you apply through a company's careers page — or through LinkedIn, Indeed, or any job board — your application almost always flows through an ATS first.</p>
+
+    <p>The most common ATS platforms you're likely being screened by include Workday, Greenhouse, Lever, iCIMS, and Taleo. Each works slightly differently, but they all do the same fundamental thing: parse your resume into structured data and compare it against the job requirements.</p>
+
+    <div class="callout">
+      <div class="callout-label">Key insight</div>
+      <p>The ATS doesn't read your resume the way a human does. It extracts data — your name, contact info, job titles, dates, skills, education — and scores each field against what the job description asks for. It can't understand context, nuance, or potential.</p>
+    </div>
+
+    <h2>How ATS systems <em>score</em> your resume</h2>
+
+    <p>Most ATS platforms score resumes based on keyword matching. They scan the job description for required skills, qualifications, and phrases — then look for those exact terms in your resume. The more matches, the higher your score. The higher your score, the more likely a recruiter actually sees you.</p>
+
+    <p>This means that two candidates with identical experience can get dramatically different outcomes based purely on word choice. If the job description says "machine learning" and your resume says "ML," many ATS systems won't connect the two.</p>
+
+    <h3>What ATS systems are specifically scanning for:</h3>
+
+    <ul>
+      <li><strong>Hard skills and technologies</strong> — programming languages, tools, platforms, certifications</li>
+      <li><strong>Job title matches</strong> — how closely your previous titles match what they're hiring for</li>
+      <li><strong>Years of experience</strong> — often parsed from your employment date ranges</li>
+      <li><strong>Education</strong> — degree type, field of study, institution</li>
+      <li><strong>Exact keyword phrases</strong> — especially from the requirements section of the job posting</li>
+    </ul>
+
+    <div class="callout rose">
+      <div class="callout-label">Common mistake</div>
+      <p>Using acronyms without spelling them out. Write "Natural Language Processing (NLP)" not just "NLP" — the ATS may not recognize the abbreviation depending on how it's configured.</p>
+    </div>
+
+    <h2>Why women in STEM are disproportionately affected</h2>
+
+    <p>Research consistently shows that women tend to undersell themselves in written communication — describing their work in modest, process-focused language rather than the outcome-driven, keyword-rich language that ATS systems reward.</p>
+
+    <p>A man might write: <em>"Led development of real-time data pipeline processing 10M+ events/day."</em> A woman with identical experience might write: <em>"Worked on the team's data infrastructure project."</em> The ATS sees the first as a match. The second gets filtered out.</p>
+
+    <p>This isn't a personal failing — it's a systemic one. ATS systems were built to find the language patterns that match job descriptions, and job descriptions were written in a language that doesn't always reflect how women naturally describe their work.</p>
+
+    <div class="callout green">
+      <div class="callout-label">The fix</div>
+      <p>Mirror the exact language of the job description in your resume. If they say "cross-functional collaboration," use that phrase. If they say "stakeholder management," use that phrase. Don't paraphrase — match.</p>
+    </div>
+
+    <h2>7 proven ways to beat an ATS</h2>
+
+    <h3>1. Read the job description like a checklist</h3>
+    <p>Every requirement listed is a potential keyword. Go through the job posting line by line and highlight every skill, tool, qualification, and phrase. Those are your targets. Your resume needs to reflect as many of them as possible — in the same language they used.</p>
+
+    <h3>2. Use a clean, simple format</h3>
+    <p>ATS systems struggle with complex layouts. Avoid tables, text boxes, headers and footers, columns, and graphics. Use a single-column layout with standard section headings like "Experience," "Education," and "Skills." Save the beautiful formatting for a PDF you bring to the interview.</p>
+
+    <h3>3. Spell out acronyms — then use both</h3>
+    <p>Write "Artificial Intelligence (AI)" the first time, then you can use "AI" after. This catches both the spelled-out version and the acronym in the ATS scan. Do this for every technical term that has a common abbreviation.</p>
+
+    <h3>4. Put keywords in context, not just a skills list</h3>
+    <p>Many ATS systems weight keywords more heavily when they appear in your experience section, not just a skills dump at the bottom. Instead of just listing "Python" under skills, make sure it appears in your bullet points: "Built data processing pipeline in Python that reduced runtime by 40%."</p>
+
+    <h3>5. Quantify everything you can</h3>
+    <p>Numbers stand out to both ATS systems and the humans who review the resumes that get through. "Improved system performance" is weak. "Reduced API response time by 60%, supporting 2M+ daily requests" is strong. Go back through every bullet point and ask: can I add a number here?</p>
+
+    <h3>6. Customize for every application</h3>
+    <p>Sending the same resume to every job is one of the biggest mistakes job seekers make. Each job description is different — and the keywords that matter are different. A resume tailored specifically to that role will always outperform a generic one. Always.</p>
+
+    <h3>7. Submit in the right format</h3>
+    <p>Unless the job posting specifies otherwise, submit your resume as a .docx or plain PDF. Avoid image-based PDFs (scanned documents), which ATS systems literally cannot read. When in doubt, .docx is the safest bet for parsing.</p>
+
+    <hr class="divider"/>
+
+    <h2>How to check your ATS score before you apply</h2>
+
+    <p>The best way to know how an ATS will treat your resume is to run it through an ATS simulator before you apply. Paste your resume and the job description into a tool that reads both — it'll show you which keywords you're hitting, which you're missing, and give you an overall match score.</p>
+
+    <p>Most people skip this step and apply blind. The ones who do it consistently get dramatically more callbacks.</p>
+
+    <!-- CTA -->
+    <div class="article-cta">
+      <h3>Let Ada tailor your resume<br/><em>in under 30 seconds.</em></h3>
+      <p>Paste your resume and any job description. Ada rewrites your resume with the right keywords, sharpens your impact statements, and gives you an ATS score — built specifically for women in STEM.</p>
+      <a href="Adaascend-signup.html">Try Ada free — no credit card needed</a>
+    </div>
+
+    <h2>The bottom line</h2>
+
+    <p>ATS systems aren't going away. If anything, as hiring volumes increase and AI tools make it easier to apply to hundreds of jobs at once, companies are leaning on ATS filtering more, not less.</p>
+
+    <p>The good news is that once you understand how they work, you can work with them. Tailor your language. Match their keywords. Format cleanly. Quantify your impact. And check your score before you hit submit.</p>
+
+    <p>Your experience is real. Your skills are real. The only thing standing between you and that interview is making sure the software can see what you've done — in the language it's been told to look for.</p>
+
+    <div class="callout green">
+      <div class="callout-label">Quick recap — ATS checklist</div>
+      <p>✓ Mirror job description keywords exactly &nbsp;·&nbsp; ✓ Single-column clean format &nbsp;·&nbsp; ✓ Spell out acronyms &nbsp;·&nbsp; ✓ Keywords in experience bullets, not just skills list &nbsp;·&nbsp; ✓ Quantify every achievement &nbsp;·&nbsp; ✓ Customize per application &nbsp;·&nbsp; ✓ Submit as .docx or plain PDF</p>
+    </div>
+
+  </article>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="index.html" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--ink);text-decoration:none;"><em style="color:var(--rose);font-style:italic;">Ada</em><span style="color:var(--gold);">Ascend</span></a>
+    <span>© 2026 AdaAscend. Named for Ada Lovelace.</span>
+    <a href="Adaascend-signup.html" style="color:var(--rose);text-decoration:none;font-weight:500;">Try Ada Free →</a>
+  </footer>
+
+</body>
+</html>
