@@ -562,22 +562,32 @@
     <a class="nav-item" href="#"><span class="nav-icon">📊</span> Job Tracker</a>
 
     <div class="sidebar-bottom">
-      <div class="plan-badge">
+      <div class="plan-badge" id="plan-badge">
         <div>
-          <div class="plan-name">Pro Plan</div>
-          <div class="plan-credits">8 tailors remaining</div>
+          <div class="plan-name" id="plan-name">Free Plan</div>
+          <div class="plan-credits" id="plan-credits">3 of 3 tailors remaining</div>
         </div>
-        <span class="plan-upgrade">Upgrade →</span>
+        <a href="https://buy.stripe.com/dRmbJ09A9e4h1iw7ctgIo00" target="_blank" class="plan-upgrade" id="plan-upgrade-btn">Upgrade →</a>
       </div>
       <div class="user-chip">
-        <div class="user-avatar">SJ</div>
+        <div class="user-avatar" id="user-avatar">?</div>
         <div>
-          <div class="user-name">Ada User</div>
-          <div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb3beb7b7b49bbabfbabaa8b8beb5bff5b8b4b6">[email&#160;protected]</a></div>
+          <div class="user-name" id="user-name">Loading...</div>
+          <div class="user-email" id="user-email" style="font-size:0.7rem;color:rgba(245,240,232,0.3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:130px;"></div>
         </div>
       </div>
+      <a href="#" onclick="signOut(event)" style="display:block;margin-top:0.75rem;font-size:0.72rem;color:rgba(245,240,232,0.25);text-align:center;text-decoration:none;cursor:pointer;letter-spacing:0.05em;">Sign out</a>
     </div>
   </aside>
+
+  <!-- UPGRADE BANNER -->
+  <div id="upgrade-banner" style="display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;background:#0f0e0c;border:1px solid rgba(184,149,90,0.35);border-radius:10px;padding:1.25rem 1.5rem;max-width:300px;box-shadow:0 8px 40px rgba(15,14,12,0.25);">
+    <div style="font-size:0.62rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#b8955a;margin-bottom:0.5rem;">Upgrade to Pro</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#faf7f2;margin-bottom:0.5rem;">Unlimited tailoring for $12/mo</div>
+    <div style="font-size:0.8rem;color:rgba(250,247,242,0.5);margin-bottom:1rem;line-height:1.6;">Cover letters, full ATS suite, priority support.</div>
+    <a href="https://buy.stripe.com/dRmbJ09A9e4h1iw7ctgIo00" target="_blank" style="display:block;text-align:center;padding:0.75rem;background:#b8955a;color:#0f0e0c;font-size:0.78rem;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;border-radius:6px;text-decoration:none;">Upgrade Now →</a>
+    <button onclick="document.getElementById('upgrade-banner').style.display='none'" style="display:block;width:100%;margin-top:0.5rem;background:none;border:none;color:rgba(250,247,242,0.2);font-size:0.72rem;cursor:pointer;">Maybe later</button>
+  </div>
 
   <main class="main">
     <div class="topbar">
@@ -1045,6 +1055,107 @@ Rules:
       document.getElementById('dl-btn-result').addEventListener('click', downloadPDF);
       document.getElementById('resume-txt') && document.getElementById('resume-txt').addEventListener('input', onResumeInput);
     });
+  </script>
+
+  <!-- SUPABASE AUTH + PLAN LOGIC -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script>
+    // ── CONFIG ──────────────────────────────────────────────
+    const SUPABASE_URL      = 'YOUR_SUPABASE_URL';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    // ────────────────────────────────────────────────────────
+
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const FREE_LIMIT = 1;
+    const PRO_LINK     = 'https://buy.stripe.com/dRmbJ09A9e4h1iw7ctgIo00';
+    const COACHED_LINK = 'https://buy.stripe.com/3cI9ASdQpbW96CQ9kBgIo01';
+
+    async function initDashboard() {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+
+      if (!session) {
+        window.location.href = 'Adaascend-login.html';
+        return;
+      }
+
+      const user = session.user;
+      const meta = user.user_metadata || {};
+      const firstName = meta.first_name || '';
+      const lastName  = meta.last_name  || '';
+      const fullName  = meta.full_name  || (firstName + ' ' + lastName).trim() || user.email.split('@')[0];
+      const initials  = ((firstName[0] || '') + (lastName[0] || '') || fullName.slice(0,2)).toUpperCase();
+
+      document.getElementById('user-name').textContent   = fullName;
+      document.getElementById('user-email').textContent  = user.email;
+      document.getElementById('user-avatar').textContent = initials;
+
+      // Try to get plan from profiles table
+      let plan = 'free';
+      try {
+        const { data } = await supabaseClient
+          .from('profiles')
+          .select('plan')
+          .eq('id', user.id)
+          .single();
+        if (data && data.plan) plan = data.plan;
+      } catch(e) { /* stay on free if table not set up yet */ }
+
+      applyPlan(plan);
+    }
+
+    function applyPlan(plan) {
+      const planName    = document.getElementById('plan-name');
+      const planCredits = document.getElementById('plan-credits');
+      const planUpgrade = document.getElementById('plan-upgrade-btn');
+
+      if (plan === 'pro') {
+        planName.textContent    = 'Pro Plan';
+        planCredits.textContent = 'Unlimited tailors';
+        if (planUpgrade) planUpgrade.style.display = 'none';
+
+      } else if (plan === 'coached') {
+        planName.textContent    = 'Coached Plan';
+        planCredits.textContent = 'Unlimited + coaching';
+        if (planUpgrade) planUpgrade.style.display = 'none';
+
+      } else {
+        // Free plan
+        const used = parseInt(localStorage.getItem('ada_tailor_count') || '0');
+        const remaining = Math.max(0, FREE_LIMIT - used);
+        planName.textContent    = 'Free Plan';
+        planCredits.textContent = remaining + ' of ' + FREE_LIMIT + ' tailors remaining';
+
+        // Show upgrade banner after 10 seconds
+        setTimeout(() => {
+          document.getElementById('upgrade-banner').style.display = 'block';
+        }, 10000);
+
+        // Intercept tailor button to enforce limit
+        const goBtn = document.getElementById('gobtn');
+        if (goBtn) {
+          goBtn.addEventListener('click', function(e) {
+            const used = parseInt(localStorage.getItem('ada_tailor_count') || '0');
+            if (used >= FREE_LIMIT) {
+              e.stopImmediatePropagation();
+              document.getElementById('upgrade-banner').style.display = 'block';
+            } else {
+              localStorage.setItem('ada_tailor_count', used + 1);
+              const newRemaining = Math.max(0, FREE_LIMIT - (used + 1));
+              document.getElementById('plan-credits').textContent = newRemaining + ' of ' + FREE_LIMIT + ' tailors remaining';
+            }
+          }, true);
+        }
+      }
+    }
+
+    async function signOut(e) {
+      e.preventDefault();
+      await supabaseClient.auth.signOut();
+      window.location.href = 'index.html';
+    }
+
+    initDashboard();
   </script>
 </body>
 </html>
