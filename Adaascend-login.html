@@ -464,14 +464,14 @@
           ? 'Incorrect email or password. Please try again.'
           : error.message, 'error');
       } else {
-        window.location.href = 'adaascend-dashboard.html';
+        window.location.href = 'dashboard.html';
       }
     }
 
     async function signInWithGoogle() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
-        options: { redirectTo: window.location.origin + '/adaascend-dashboard.html' }
+        options: { redirectTo: window.location.origin + '/dashboard.html' }
       });
       if (error) showAlert('alert', error.message, 'error');
     }
@@ -511,7 +511,7 @@
     });
 
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) window.location.href = 'adaascend-dashboard.html';
+      if (session) window.location.href = 'dashboard.html';
     });
   </script>
 </body>

@@ -342,7 +342,16 @@
     <div class="auth-card">
       <div class="auth-eyebrow">Create your account</div>
       <h2 class="auth-title">Join <em>AdaAscend</em></h2>
-      <p class="auth-sub">Your first resume tailor is on us. No credit card required.</p>
+      <p class="auth-sub" id="auth-sub">Your first resume tailor is on us. No credit card required.</p>
+      <script>
+        (function() {
+          const p = new URLSearchParams(window.location.search).get('plan');
+          const el = document.getElementById('auth-sub');
+          if (!el) return;
+          if (p === 'pro') el.textContent = 'Create your account first — then complete your Pro plan ($12/mo).';
+          if (p === 'coached') el.textContent = 'Create your account first — then complete your Coached plan ($99/mo).';
+        })();
+      </script>
 
       <div class="alert" id="alert"></div>
 
@@ -465,14 +474,23 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_
       } else if (data.user && !data.session) {
         showAlert('Almost there! Check your email to confirm your account, then come back to sign in.', 'success');
       } else {
-        window.location.href = 'adaascend-dashboard.html';
+        // Check if they came from a pricing plan
+        const params = new URLSearchParams(window.location.search);
+        const plan = params.get('plan');
+        if (plan === 'pro') {
+          window.location.href = 'https://buy.stripe.com/dRmbJ09A9e4h1iw7ctgIo00';
+        } else if (plan === 'coached') {
+          window.location.href = 'https://buy.stripe.com/3cI9ASdQpbW96CQ9kBgIo01';
+        } else {
+          window.location.href = 'dashboard.html';
+        }
       }
     }
 
     async function signUpWithGoogle() {
       const { error } = await supabaseClient.auth.signInWithOAuth({
         provider: 'google',
-        options: { redirectTo: window.location.origin + '/adaascend-dashboard.html' }
+        options: { redirectTo: window.location.origin + '/dashboard.html' }
       });
       if (error) showAlert(error.message, 'error');
     }
