@@ -36,4 +36,11 @@
   <priority>0.8</priority>
 </url>
 
+<url>
+  <loc>https://www.adaascend.com/blog-ada-lovelace.html</loc>
+  <lastmod>2026-04-24</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
+
 </urlset>
