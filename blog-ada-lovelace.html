@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- SEO -->
+  <title>Ada Lovelace Wrote the World's First Algorithm. In 1843. As a Woman. | AdaAscend</title>
+  <meta name="description" content="Ada Lovelace was the world's first computer programmer — a century before computers existed. Her story is why we built AdaAscend. Here's the woman behind the name."/>
+  <meta name="keywords" content="Ada Lovelace story, first female programmer, Ada Lovelace algorithm, women in STEM history, Ada Lovelace 1843, women in computer science history"/>
+  <meta name="author" content="AdaAscend"/>
+  <link rel="canonical" href="https://www.adaascend.com/blog-ada-lovelace.html"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="article"/>
+  <meta property="og:url"         content="https://www.adaascend.com/blog-ada-lovelace.html"/>
+  <meta property="og:title"       content="Ada Lovelace Wrote the World's First Algorithm. In 1843. As a Woman."/>
+  <meta property="og:description" content="She invented computer programming a century before computers existed. Her story is why we built AdaAscend."/>
+  <meta property="og:image"       content="https://www.adaascend.com/og-image.png"/>
+  <meta property="og:site_name"   content="AdaAscend"/>
+
+  <!-- Article Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Ada Lovelace Wrote the World's First Algorithm. In 1843. As a Woman.",
+    "description": "Ada Lovelace was the world's first computer programmer — a century before computers existed. Her story is why we built AdaAscend.",
+    "author": { "@type": "Organization", "name": "AdaAscend" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "AdaAscend",
+      "logo": { "@type": "ImageObject", "url": "https://www.adaascend.com/logo.png" }
+    },
+    "datePublished": "2026-04-24",
+    "dateModified": "2026-04-24",
+    "mainEntityOfPage": "https://www.adaascend.com/blog-ada-lovelace.html"
+  }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1520;
+      --cream: #faf7f2;
+      --warm: #f0e9dc;
+      --border: rgba(26,21,32,0.1);
+      --gold: #b8955a;
+      --rose: #b85c4a;
+      --muted: #7a6e6a;
+      --white: #fdfaf6;
+      --green: #3a6e4a;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 4rem;
+      background: rgba(250,247,242,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(184,149,90,0.15);
+      position: sticky; top: 0; z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--ink); text-decoration: none;
+    }
+
+    .logo em { font-style: italic; color: var(--rose); }
+    .logo span { color: var(--gold); }
+
+    .nav-cta {
+      padding: 0.55rem 1.25rem;
+      background: var(--ink); color: var(--cream);
+      border-radius: 4px; text-decoration: none;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--rose); }
+
+    /* HERO */
+    .article-hero {
+      background: var(--ink);
+      padding: 5rem 4rem 4rem;
+      position: relative; overflow: hidden;
+    }
+
+    .article-hero::before {
+      content: 'ADA';
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22vw; font-weight: 700;
+      color: rgba(184,149,90,0.05);
+      top: 50%; right: -2%;
+      transform: translateY(-50%);
+      pointer-events: none; white-space: nowrap;
+      letter-spacing: -0.03em;
+    }
+
+    .article-meta {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+
+    .article-meta span { color: rgba(250,247,242,0.25); }
+
+    .article-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 700; line-height: 1.1;
+      color: var(--cream); max-width: 780px;
+      margin-bottom: 1.5rem; letter-spacing: -0.01em;
+    }
+
+    .article-title em { font-style: italic; color: var(--rose); }
+
+    .article-intro {
+      font-size: 1.05rem; line-height: 1.8;
+      color: rgba(250,247,242,0.55);
+      max-width: 620px; font-weight: 300;
+    }
+
+    /* CONTENT */
+    .article-body {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .article-body h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem; font-weight: 700;
+      line-height: 1.2; color: var(--ink);
+      margin: 3rem 0 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .article-body h2 em { font-style: italic; color: var(--rose); }
+
+    .article-body p {
+      font-size: 1rem; line-height: 1.9;
+      color: #3a3036; margin-bottom: 1.4rem;
+    }
+
+    .article-body strong { color: var(--ink); font-weight: 500; }
+    .article-body em { font-style: italic; }
+
+    .article-body a { color: var(--rose); text-decoration: none; }
+    .article-body a:hover { text-decoration: underline; }
+
+    /* PULL QUOTE */
+    .pull-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-style: italic;
+      font-weight: 600; line-height: 1.5;
+      color: var(--ink);
+      border-left: 3px solid var(--gold);
+      padding: 1rem 0 1rem 2rem;
+      margin: 2.5rem 0;
+      max-width: 600px;
+    }
+
+    .pull-quote cite {
+      display: block;
+      font-size: 0.78rem; font-style: normal;
+      font-weight: 400; color: var(--muted);
+      margin-top: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* TIMELINE */
+    .timeline {
+      margin: 2.5rem 0;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 16px; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, var(--gold), var(--rose));
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding-left: 0.5rem;
+    }
+
+    .timeline-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem; font-weight: 700;
+      color: var(--gold);
+      position: relative; z-index: 1;
+    }
+
+    .timeline-content { padding-top: 0.25rem; }
+
+    .timeline-year {
+      font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.25rem;
+    }
+
+    .timeline-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--ink); margin-bottom: 0.4rem;
+    }
+
+    .timeline-text {
+      font-size: 0.9rem; line-height: 1.7;
+      color: var(--muted); margin: 0;
+    }
+
+    /* CALLOUT */
+    .callout {
+      border-left: 3px solid var(--gold);
+      background: rgba(184,149,90,0.06);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .callout.rose {
+      border-left-color: var(--rose);
+      background: rgba(184,92,74,0.05);
+    }
+
+    .callout-label {
+      font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.5rem;
+    }
+
+    .callout.rose .callout-label { color: var(--rose); }
+    .callout p { margin: 0; font-size: 0.95rem; color: #3a3036; }
+
+    /* MISSION BLOCK */
+    .mission-block {
+      background: var(--ink);
+      border-radius: 12px;
+      padding: 3rem;
+      margin: 3rem 0;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+
+    .mission-block::before {
+      content: '✦';
+      position: absolute;
+      font-size: 10rem;
+      color: rgba(184,149,90,0.05);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .mission-block h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 700;
+      color: var(--cream); margin-bottom: 1rem;
+      position: relative; z-index: 1;
+      line-height: 1.2;
+    }
+
+    .mission-block h3 em { font-style: italic; color: var(--rose); }
+
+    .mission-block p {
+      color: rgba(250,247,242,0.55);
+      max-width: 520px; margin: 0 auto 1.75rem;
+      font-size: 0.95rem; line-height: 1.8;
+      position: relative; z-index: 1;
+    }
+
+    .mission-block a {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      background: var(--gold); color: var(--ink);
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border-radius: 6px; text-decoration: none;
+      transition: background 0.2s;
+      position: relative; z-index: 1;
+    }
+
+    .mission-block a:hover { background: var(--rose); color: var(--cream); }
+
+    /* DIVIDER */
+    hr {
+      border: none; border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between;
+      align-items: center; font-size: 0.78rem;
+      color: var(--muted); background: var(--warm);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .article-hero { padding: 4rem 1.5rem 3rem; }
+      .article-body { padding: 2.5rem 1.5rem 4rem; }
+      .pull-quote { font-size: 1.3rem; padding-left: 1.25rem; }
+      .mission-block { padding: 2rem 1.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="logo"><em>Ada</em><span>Ascend</span></a>
+    <a href="Adaascend-signup.html" class="nav-cta">Try Ada Free</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="article-hero">
+    <div class="article-meta">
+      Inspiration <span>·</span> 6 min read <span>·</span> AdaAscend Team
+    </div>
+    <h1 class="article-title">Ada Lovelace Wrote the World's First Algorithm.<br/>In 1843. <em>As a Woman.</em></h1>
+    <p class="article-intro">She invented computer programming a century before computers existed — in an era when women weren't supposed to do mathematics at all. This is her story. And ours.</p>
+  </div>
+
+  <!-- BODY -->
+  <article class="article-body">
+
+    <p>There is a woman you should know about.</p>
+
+    <p>Her name was Augusta Ada King, Countess of Lovelace. She was born in 1815, the only legitimate child of the poet Lord Byron — though her father abandoned the family when she was just one month old. Her mother, terrified that Ada would inherit her father's volatile artistic temperament, pushed her relentlessly toward mathematics and logic instead. It was meant to keep her grounded. It ended up changing the world.</p>
+
+    <p>Ada Lovelace was, by every modern definition, the world's first computer programmer. She wrote the first algorithm ever designed to be processed by a machine. She did it in 1843. She was 27 years old. And she did it at a time when women in England could not vote, could not attend university, and were not considered intellectually capable of serious scientific thought.</p>
+
+    <p>We named our platform after her because we believe that what happened to Ada — a brilliant woman whose contributions were dismissed, overlooked, and nearly lost to history — is still happening today. Just more quietly.</p>
+
+    <h2>The machine that <em>didn't exist yet</em></h2>
+
+    <p>To understand what Ada did, you have to understand what she was working with — which was, essentially, nothing.</p>
+
+    <p>In 1833, Ada was introduced to Charles Babbage, a mathematician and inventor who had designed a theoretical machine called the Difference Engine — a mechanical calculator of extraordinary complexity. Babbage was brilliant, eccentric, and chronically unable to finish anything. Ada was 17. She was immediately captivated.</p>
+
+    <p>Over the following years, Babbage designed an even more ambitious machine: the Analytical Engine. It was never built in his lifetime. But it was, in every meaningful sense, the design for the first general-purpose computer — with an input system, a memory unit, and a processing unit. A century before anyone had a name for any of those things.</p>
+
+    <div class="pull-quote">
+      "The Analytical Engine weaves algebraic patterns just as the Jacquard loom weaves flowers and leaves."
+      <cite>— Ada Lovelace, 1843</cite>
+    </div>
+
+    <p>In 1842, an Italian mathematician published a paper in French describing Babbage's Analytical Engine. Babbage asked Ada to translate it into English. She did — and then, almost as an aside, added her own notes.</p>
+
+    <p>Those notes were three times longer than the original paper.</p>
+
+    <h2>What she saw that <em>nobody else did</em></h2>
+
+    <p>Ada's notes weren't just a translation. They were a vision. While Babbage saw his machine as a sophisticated calculator — something that could crunch numbers faster than any human — Ada saw something far more profound.</p>
+
+    <p>She understood that if a machine could manipulate symbols according to rules, it could manipulate <em>any</em> symbols according to <em>any</em> rules. It wasn't just a calculator. It was a general-purpose thinking machine. It could compose music. It could process language. It could do anything that could be expressed as a logical sequence of steps.</p>
+
+    <p>She was describing, with startling precision, the computer you are reading this on right now.</p>
+
+    <div class="callout">
+      <div class="callout-label">What she actually wrote</div>
+      <p>In Note G of her translation — the note that contains the world's first algorithm — Ada described a detailed method for calculating Bernoulli numbers using the Analytical Engine. It was a step-by-step sequence of operations: inputs, loops, conditional branching. It was, in every technical sense, a computer program. Written in 1843. For a machine that would not exist for another 100 years.</p>
+    </div>
+
+    <h2>A life that burned <em>too bright</em></h2>
+
+    <p>Ada Lovelace died in 1852, at just 36 years old, of uterine cancer. She never saw her work recognized. The Analytical Engine was never built. Her notes were published but largely ignored. For nearly a century, her contribution to computing history was forgotten entirely.</p>
+
+    <p>It was not until the 1950s — when Alan Turing was laying the foundations of modern computer science — that historians began to rediscover what Ada had written. They found, buried in a translation published in an obscure scientific journal more than a hundred years earlier, the blueprint for everything that came after.</p>
+
+    <p>In 1980, the United States Department of Defense named a newly developed programming language <strong>Ada</strong> in her honor. It is still used today in aircraft navigation systems, railway management, and space technology.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot">1</div>
+        <div class="timeline-content">
+          <div class="timeline-year">1815</div>
+          <div class="timeline-title">Ada is born</div>
+          <p class="timeline-text">Augusta Ada Byron is born in London. Her father Lord Byron leaves the family one month later and never returns.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">2</div>
+        <div class="timeline-content">
+          <div class="timeline-year">1833</div>
+          <div class="timeline-title">She meets Babbage</div>
+          <p class="timeline-text">At 17, Ada meets Charles Babbage and sees his Difference Engine. She is the only person in the room who truly understands what it could become.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">3</div>
+        <div class="timeline-content">
+          <div class="timeline-year">1843</div>
+          <div class="timeline-title">She writes the first algorithm</div>
+          <p class="timeline-text">Ada publishes her notes on the Analytical Engine — including the world's first computer program. She is 27 years old.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">4</div>
+        <div class="timeline-content">
+          <div class="timeline-year">1852</div>
+          <div class="timeline-title">She dies at 36</div>
+          <p class="timeline-text">Ada Lovelace dies of cancer, her work largely unrecognized. She is buried beside the father she never knew.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">5</div>
+        <div class="timeline-content">
+          <div class="timeline-year">1980</div>
+          <div class="timeline-title">Her name lives on</div>
+          <p class="timeline-text">The US Department of Defense names a programming language Ada in her honor. Her contribution to computing is finally recognized — 137 years later.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Why we named our platform <em>after her</em></h2>
+
+    <p>When we were building AdaAscend, we thought a lot about what we were really trying to do. On the surface, it's a career platform — resume tailoring, ATS optimization, coaching. Practical tools for a practical problem.</p>
+
+    <p>But underneath that, it's something else. It's a belief that there are women right now — sitting in classrooms, submitting applications, walking into interviews — who have exactly what it takes. Who are brilliant, capable, and ready. And who are being filtered out by systems that weren't built with them in mind.</p>
+
+    <p>Ada Lovelace was filtered out too. Not by an ATS system — but by an entire society that decided, categorically, that women didn't belong in mathematics or science. She did the work anyway. She saw what nobody else could see. And for a century, nobody knew.</p>
+
+    <p>We don't want that to happen anymore. We don't want another Ada's work to disappear into a folder marked "rejected" because her resume didn't have the right keywords. We don't want her story to go untold because nobody gave her the tools to tell it in the language the gatekeepers understand.</p>
+
+    <div class="callout rose">
+      <div class="callout-label">Our mission</div>
+      <p>Every woman who uses AdaAscend is continuing the work Ada started. She proved that women belong in this field — that we don't just belong here, we <em>built</em> it. AdaAscend exists to make sure the women who come after her are never filtered out before they even get the chance to show what they can do.</p>
+    </div>
+
+    <h2>She didn't just belong in STEM. <em>She created it.</em></h2>
+
+    <p>The next time you feel like you don't belong in the room — remember Ada Lovelace. She didn't have a room. She had a society that told her mathematics wasn't for her, a machine that didn't exist, and a vision that was 100 years ahead of its time.</p>
+
+    <p>She wrote the algorithm anyway.</p>
+
+    <p>Whatever you're building, whatever role you're applying for, whatever room you're trying to get into — you belong there. Not despite being a woman in STEM. Because of everything that means.</p>
+
+    <p>Ada knew it in 1843. We know it now. And we built this platform to make sure the world knows it too.</p>
+
+    <hr/>
+
+    <!-- MISSION CTA -->
+    <div class="mission-block">
+      <h3>Named for Ada.<br/>Built for <em>you.</em></h3>
+      <p>AdaAscend gives women in STEM the tools to tell their story in the language that gets them hired — AI resume tailoring, ATS optimization, and coaching from women who've been where you're going.</p>
+      <a href="Adaascend-signup.html">Start free — no credit card needed</a>
+    </div>
+
+  </article>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="index.html" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--ink);text-decoration:none;"><em style="color:var(--rose);font-style:italic;">Ada</em><span style="color:var(--gold);">Ascend</span></a>
+    <span>© 2026 AdaAscend. Named for Ada Lovelace.</span>
+    <a href="Adaascend-signup.html" style="color:var(--rose);text-decoration:none;font-weight:500;">Try Ada Free →</a>
+  </footer>
+
+</body>
+</html>
