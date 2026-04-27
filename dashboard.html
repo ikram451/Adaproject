@@ -186,10 +186,11 @@
     .steps-bar {
       display: flex; align-items: center;
       margin-bottom: 2rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: linear-gradient(135deg, #fdfaf4, #f5ede0);
+      border: 1px solid rgba(184,149,90,0.2);
       border-radius: 8px;
       padding: 1rem 1.75rem;
+      box-shadow: 0 2px 12px rgba(184,149,90,0.06);
     }
 
     .step-item {
@@ -324,19 +325,27 @@
     .btn-go {
       display: flex; align-items: center; gap: 0.7rem;
       padding: 1rem 3.5rem;
-      background: var(--ink); color: #f5f0e8;
+      background: linear-gradient(135deg, #1a1520, #2a1f2a);
+      color: #f5f0e8;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem; font-weight: 500;
+      font-size: 0.85rem; font-weight: 500;
       letter-spacing: 0.1em; text-transform: uppercase;
       border: none; border-radius: 6px; cursor: pointer;
-      transition: background 0.25s, transform 0.1s, box-shadow 0.2s;
+      transition: all 0.25s;
       position: relative; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(15,14,12,0.2);
+    }
+
+    .btn-go::before {
+      content: '✦';
+      margin-right: 0.25rem;
+      color: #b8955a;
     }
 
     .btn-go:hover {
-      background: var(--rust);
-      box-shadow: 0 8px 28px rgba(196,82,42,0.25);
-      transform: translateY(-1px);
+      background: linear-gradient(135deg, #b85c4a, #9a4a3a);
+      box-shadow: 0 8px 28px rgba(184,92,74,0.3);
+      transform: translateY(-2px);
     }
 
     .btn-go:active { transform: translateY(0); }
@@ -549,41 +558,64 @@
 <body>
 
   <aside class="sidebar">
-    <div class="logo"><span class="logo-ada">Ada</span><span class="logo-her">Ascend</span></div>
+    <div class="logo"><em style="font-style:italic;color:#b85c4a;">Ada</em><span style="color:#b8955a;">Ascend</span></div>
 
+    <div id="welcome-msg" style="padding:0.6rem 0.5rem 1.25rem;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:1rem;">
+      <div style="font-size:0.68rem;color:rgba(245,240,232,0.3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.25rem;">Welcome back</div>
+      <div id="welcome-name" style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:#f5f0e8;font-style:italic;">Loading...</div>
+    </div>
     <div class="nav-section">Workspace</div>
     <a class="nav-item active" href="#"><span class="nav-icon">✦</span> Tailor Resume</a>
     <a class="nav-item" href="#"><span class="nav-icon">📄</span> My Resumes</a>
     <a class="nav-item" href="#"><span class="nav-icon">📋</span> History</a>
 
     <div class="nav-section">Tools</div>
-    <a class="nav-item" href="#"><span class="nav-icon">🎯</span> ATS Checker</a>
-    <a class="nav-item" href="#"><span class="nav-icon">✉️</span> Cover Letter</a>
-    <a class="nav-item" href="#"><span class="nav-icon">📊</span> Job Tracker</a>
+    <div class="nav-item" style="opacity:0.4;cursor:not-allowed;justify-content:space-between;">
+      <span style="display:flex;align-items:center;gap:0.7rem;"><span class="nav-icon">🎯</span> ATS Checker</span>
+      <span style="font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(245,240,232,0.3);border:1px solid rgba(245,240,232,0.15);padding:0.15rem 0.4rem;border-radius:3px;">Soon</span>
+    </div>
+    <div class="nav-item" style="opacity:0.4;cursor:not-allowed;justify-content:space-between;">
+      <span style="display:flex;align-items:center;gap:0.7rem;"><span class="nav-icon">✉️</span> Cover Letter</span>
+      <span style="font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(245,240,232,0.3);border:1px solid rgba(245,240,232,0.15);padding:0.15rem 0.4rem;border-radius:3px;">Soon</span>
+    </div>
+    <div class="nav-item" style="opacity:0.4;cursor:not-allowed;justify-content:space-between;">
+      <span style="display:flex;align-items:center;gap:0.7rem;"><span class="nav-icon">📊</span> Job Tracker</span>
+      <span style="font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(245,240,232,0.3);border:1px solid rgba(245,240,232,0.15);padding:0.15rem 0.4rem;border-radius:3px;">Soon</span>
+    </div>
 
     <div class="sidebar-bottom">
-      <div class="plan-badge">
+      <div class="plan-badge" id="plan-badge">
         <div>
-          <div class="plan-name">Pro Plan</div>
-          <div class="plan-credits">8 tailors remaining</div>
+          <div class="plan-name" id="plan-name">Free Plan</div>
+          <div class="plan-credits" id="plan-credits">1 tailor remaining</div>
         </div>
-        <span class="plan-upgrade">Upgrade →</span>
+        <a href="https://buy.stripe.com/dRmbJ09A9e4h1iw7ctgIo00" target="_blank" class="plan-upgrade" id="plan-upgrade-btn">Upgrade →</a>
       </div>
       <div class="user-chip">
-        <div class="user-avatar">SJ</div>
+        <div class="user-avatar" id="user-avatar">?</div>
         <div>
-          <div class="user-name">Ada User</div>
-          <div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb3beb7b7b49bbabfbabaa8b8beb5bff5b8b4b6">[email&#160;protected]</a></div>
+          <div class="user-name" id="user-name">Loading...</div>
+          <div class="user-email" id="user-email" style="font-size:0.7rem;color:rgba(245,240,232,0.3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:130px;"></div>
         </div>
       </div>
+      <a href="#" onclick="signOut(event)" style="display:block;margin-top:0.75rem;font-size:0.72rem;color:rgba(245,240,232,0.25);text-align:center;text-decoration:none;cursor:pointer;letter-spacing:0.05em;">Sign out</a>
     </div>
   </aside>
+
+  <!-- UPGRADE BANNER -->
+  <div id="upgrade-banner" style="display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;background:#0f0e0c;border:1px solid rgba(184,149,90,0.35);border-radius:10px;padding:1.25rem 1.5rem;max-width:300px;box-shadow:0 8px 40px rgba(15,14,12,0.25);">
+    <div style="font-size:0.62rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#b8955a;margin-bottom:0.5rem;">Upgrade to Pro</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#faf7f2;margin-bottom:0.5rem;">Unlimited tailoring for $20/mo</div>
+    <div style="font-size:0.8rem;color:rgba(250,247,242,0.5);margin-bottom:1rem;line-height:1.6;">Cover letters, full ATS suite, priority support.</div>
+    <a href="https://buy.stripe.com/dRmbJ09A9e4h1iw7ctgIo00" target="_blank" style="display:block;text-align:center;padding:0.75rem;background:#b8955a;color:#0f0e0c;font-size:0.78rem;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;border-radius:6px;text-decoration:none;">Upgrade Now →</a>
+    <button onclick="document.getElementById('upgrade-banner').style.display='none'" style="display:block;width:100%;margin-top:0.5rem;background:none;border:none;color:rgba(250,247,242,0.2);font-size:0.72rem;cursor:pointer;">Maybe later</button>
+  </div>
 
   <main class="main">
     <div class="topbar">
       <div>
         <div class="topbar-title">Tailor My Resume</div>
-        <div class="topbar-sub">Paste a job description and let AI do the heavy lifting</div>
+        <div class="topbar-sub">Paste your resume + a job description — Ada rewrites it in seconds ✦</div>
       </div>
       <div class="topbar-actions">
         <button class="tbtn ghost">View History</button>
@@ -1045,6 +1077,114 @@ Rules:
       document.getElementById('dl-btn-result').addEventListener('click', downloadPDF);
       document.getElementById('resume-txt') && document.getElementById('resume-txt').addEventListener('input', onResumeInput);
     });
+  </script>
+
+  <!-- SUPABASE AUTH + PLAN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script>
+    const SUPABASE_URL      = 'https://rcwcaradnqvdyrzpyaeo.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjd2NhcmFkbnF2ZHlyenB5YWVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2Mzc5MjAsImV4cCI6MjA5MjIxMzkyMH0.ztApFwmrk_8jebj7MMt-OYG7xEMvmKPF49pT5GqO1yg';
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const FREE_LIMIT = 1;
+    const PRO_LINK   = 'https://buy.stripe.com/dRmbJ09A9e4h1iw7ctgIo00';
+    const COACHED_LINK = 'https://buy.stripe.com/3cI9ASdQpbW96CQ9kBgIo01';
+
+    async function initDashboard() {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (!session) { window.location.href = 'Adaascend-login.html'; return; }
+
+      const user = session.user;
+      const meta = user.user_metadata || {};
+      const firstName = meta.first_name || '';
+      const lastName  = meta.last_name  || '';
+      const fullName  = meta.full_name  || (firstName + ' ' + lastName).trim() || user.email.split('@')[0];
+      const initials  = ((firstName[0] || '') + (lastName[0] || '') || fullName.slice(0,2)).toUpperCase();
+
+      document.getElementById('user-name').textContent   = fullName;
+      document.getElementById('user-email').textContent  = user.email;
+      document.getElementById('user-avatar').textContent = initials;
+      document.getElementById('welcome-name').textContent = 'Hey, ' + (firstName || fullName.split(' ')[0]) + '.';
+
+      // Read plan from profiles table
+      let plan = 'free';
+      let tailorCount = 0;
+      try {
+        const { data } = await supabaseClient
+          .from('profiles')
+          .select('plan, tailor_count, full_name')
+          .eq('id', user.id)
+          .single();
+        if (data) {
+          plan = data.plan || 'free';
+          tailorCount = data.tailor_count || 0;
+          if (data.full_name && document.getElementById('user-name').textContent === fullName) {
+            document.getElementById('user-name').textContent = data.full_name;
+          }
+        }
+      } catch(e) { /* stay free */ }
+
+      applyPlan(plan, tailorCount, user.id);
+    }
+
+    function applyPlan(plan, tailorCount, userId) {
+      const planName    = document.getElementById('plan-name');
+      const planCredits = document.getElementById('plan-credits');
+      const planUpgrade = document.getElementById('plan-upgrade-btn');
+
+      if (plan === 'pro' || plan === 'coached') {
+        planName.textContent    = plan === 'pro' ? 'Pro Plan' : 'Coached Plan';
+        planCredits.textContent = plan === 'pro' ? 'Unlimited tailors' : 'Unlimited + coaching';
+        if (planUpgrade) planUpgrade.style.display = 'none';
+      } else {
+        // Free plan
+        const remaining = Math.max(0, FREE_LIMIT - tailorCount);
+        planName.textContent    = 'Free Plan';
+        planCredits.textContent = remaining + ' of ' + FREE_LIMIT + ' tailor remaining';
+
+        // Show upgrade banner after 10 seconds
+        setTimeout(() => {
+          if (tailorCount >= FREE_LIMIT) {
+            document.getElementById('upgrade-banner').style.display = 'block';
+          }
+        }, 10000);
+
+        // Intercept tailor button
+        const goBtn = document.getElementById('gobtn');
+        if (goBtn) {
+          goBtn.addEventListener('click', async function(e) {
+            // Check current count from DB
+            const { data } = await supabaseClient
+              .from('profiles')
+              .select('tailor_count')
+              .eq('id', userId)
+              .single();
+            const currentCount = data ? data.tailor_count : 0;
+
+            if (currentCount >= FREE_LIMIT) {
+              e.stopImmediatePropagation();
+              document.getElementById('upgrade-banner').style.display = 'block';
+            } else {
+              // Increment count in DB
+              await supabaseClient
+                .from('profiles')
+                .update({ tailor_count: currentCount + 1 })
+                .eq('id', userId);
+              const newRemaining = Math.max(0, FREE_LIMIT - (currentCount + 1));
+              document.getElementById('plan-credits').textContent = newRemaining + ' of ' + FREE_LIMIT + ' tailor remaining';
+            }
+          }, true);
+        }
+      }
+    }
+
+    async function signOut(e) {
+      e.preventDefault();
+      await supabaseClient.auth.signOut();
+      window.location.href = 'index.html';
+    }
+
+    initDashboard();
   </script>
 </body>
 </html>

@@ -368,7 +368,7 @@
 
       <div class="alert" id="alert"></div>
 
-      <button class="google-btn" onclick="signInWithGoogle()">
+      <button class="google-btn" id="googleBtn">
         <svg class="google-icon" viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
           <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -393,7 +393,7 @@
         <input class="form-input" id="password" type="password" placeholder="Your password" autocomplete="current-password"/>
       </div>
 
-      <button class="submit-btn" id="submitBtn" onclick="handleSignIn()">
+      <button class="submit-btn" id="submitBtn">
         <div class="btn-inner">
           <div class="spinner" id="spinner"></div>
           <span id="btnText">Sign in to AdaAscend</span>
@@ -401,7 +401,7 @@
       </button>
 
       <div class="auth-footer">
-        Don't have an account? <a href="adaascend-signup.html">Join free →</a>
+        Don't have an account? <a href="Adaascend-signup.html">Join free →</a>
       </div>
     </div>
   </div>
@@ -422,15 +422,36 @@
   </div>
 
   <!-- SUPABASE -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script>
+  // Load Supabase dynamically to prevent blocking
+  (function() {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
+    s.onload = function() { initSupabase(); };
+    s.onerror = function() { console.error('Supabase failed to load'); };
+    document.head.appendChild(s);
+  })();
+  </script>
   <script>
     // ─── CONFIG: Replace these two values with your Supabase project details ───
     // Get them from: https://supabase.com → your project → Settings → API
-    const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-    // ──────────────────────────────────────────────────────────────────────────
+    const SUPABASE_URL = 'https://rcwcaradnqvdyrzpyaeo.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjd2NhcmFkbnF2ZHlyenB5YWVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2Mzc5MjAsImV4cCI6MjA5MjIxMzkyMH0.ztApFwmrk_8jebj7MMt-OYG7xEMvmKPF49pT5GqO1yg';
 
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    let supabaseClient;
+
+    function initSupabase() {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      // Attach button events after Supabase loads
+      document.getElementById('submitBtn').addEventListener('click', handleSignIn);
+      document.getElementById('googleBtn').addEventListener('click', signInWithGoogle);
+
+      // Check if already logged in
+      supabaseClient.auth.getSession().then(({ data: { session } }) => {
+        if (session) window.location.href = 'dashboard.html';
+      });
+    }
 
     function showAlert(id, msg, type) {
       const el = document.getElementById(id);
@@ -455,21 +476,26 @@
 
       setLoading(true);
 
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
       setLoading(false);
 
       if (error) {
-        showAlert('alert', error.message === 'Invalid login credentials'
-          ? 'Incorrect email or password. Please try again.'
-          : error.message, 'error');
+        if (error.message === 'Invalid login credentials') {
+          // Show error with signup prompt
+          const alertEl = document.getElementById('alert');
+          alertEl.innerHTML = 'Incorrect email or password. <a href="Adaascend-signup.html" style="color:var(--rose);font-weight:500;text-decoration:underline;">No account? Sign up free &rarr;</a>';
+          alertEl.className = 'alert error';
+        } else {
+          showAlert('alert', error.message, 'error');
+        }
       } else {
         window.location.href = 'dashboard.html';
       }
     }
 
     async function signInWithGoogle() {
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { error } = await supabaseClient.auth.signInWithOAuth({
         provider: 'google',
         options: { redirectTo: window.location.origin + '/dashboard.html' }
       });
@@ -493,7 +519,7 @@
       document.getElementById('modal-alert').className = 'alert';
       if (!email || !email.includes('@')) return showAlert('modal-alert', 'Please enter your email address.', 'error');
 
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
         redirectTo: window.location.origin + '/adaascend-reset.html'
       });
 
@@ -510,9 +536,7 @@
       if (e.key === 'Escape') closeForgot();
     });
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) window.location.href = 'dashboard.html';
-    });
+
   </script>
 </body>
 </html>
